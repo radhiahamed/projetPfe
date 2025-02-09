@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+}
+
+.restaurant-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Permet de passer à la ligne si l'espace est insuffisant */
+}
+
+.restaurant-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 10px; /* Ajout d'une marge pour espacer les cartes */
+  flex: 1 1 calc(30% - 20px); /* Chaque carte prend 30% de la largeur, moins la marge */
+  max-width: 300px; /* Limite la largeur maximale de chaque carte */
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 250px; /* Hauteur fixe pour les images */
+  object-fit: cover;
+}
+
+.restaurant-info {
+  padding: 15px;
+}
+
+.restaurant-name {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.restaurant-description {
+  color: #000000;
+  margin: 10px 0;
+}
+
+.restaurant-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.restaurant-rating {
+  font-size: 1.2em;
+}
+
+.restaurant-price {
+  font-size: 1.2em;
+  color: #030303; /* Couleur pour le prix */
+}
+
+.reserve-button {
+  background-color: #292e34;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.reserve-button:hover {
+  background-color: #454749;
+}
+.horaires {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: black;
+}
+
+.ouvert {
+  color: rgb(198, 44, 44);
+  font-weight: bold;
+}
+
+.dropdown {
+  font-size: 12px;
+  color: rgb(231, 23, 23);
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+#horaires-details {
+  font-size: 14px;
+  margin-top: 5px;
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+  width: 200px;
+}
+
+

@@ -1,0 +1,142 @@
+/* Global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Cache tout dépassement horizontal */
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Assure un remplissage parfait */
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-size: cover; /* Ajuste l'image pour couvrir tout l'écran */
+  background-repeat: no-repeat; /* Empêche la répétition de l'image */
+  background-position: center; /* Centre l'image */
+  position: relative; /* Permet d'ajouter un overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Overlay sombre */
+.container::before {
+  content: "";
+  position: fixed; /* Positionné par rapport à la fenêtre */
+  top: 0;
+  left: 0;
+  width: 100vw;  /* Utilisation de 100% de la largeur de la fenêtre */
+  height: 100vh; /* Utilisation de 100% de la hauteur de la fenêtre */
+  background: rgba(188, 166, 166, 0.5);  /* Une couleur sombre avec une opacité de 70% */
+  z-index: 0; /* Assure que l'overlay est derrière le contenu mais devant l'image de fond */
+}
+
+/* Contenu de la page */
+.container > * {
+  z-index: 0; /* S'assure que le contenu reste au-dessus de l'overlay */
+}
+
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: white; /* Change la couleur si nécessaire */
+  margin-bottom: 20px; /* Espacement avec le formulaire */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+
+
+/* 🎨 Style du formulaire */
+form {
+  position: relative; /* Pour être au-dessus de l'overlay */
+  z-index: 1;
+  max-width: 400px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.9); /* Légèrement transparent */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🏷️ Style des labels */
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* 📝 Style des champs de saisie */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* 🎨 Style des champs lorsqu'ils sont sélectionnés */
+input:focus {
+  border-color: #ff5733;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 87, 51, 0.5);
+}
+
+/* 🎯 Bouton de réservation */
+button {
+  background: #151313;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* 🎬 Effet au survol du bouton */
+button:hover {
+  background: #292727;
+}
+
+/* 📱 Responsive : Ajustements pour petits écrans */
+@media (max-width: 480px) {
+  form {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+/* ✨ Animation du formulaire */
+form {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: slideIn 0.5s forwards;
+}
+
+@keyframes slideIn {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

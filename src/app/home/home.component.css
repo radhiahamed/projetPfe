@@ -1,0 +1,240 @@
+/* Global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Cache tout dépassement horizontal */
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Assure un remplissage parfait */
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-size: cover; /* Ajuste l'image pour couvrir tout l'écran */
+  background-repeat: no-repeat; /* Empêche la répétition de l'image */
+  background-position: center; /* Centre l'image */
+  position: relative; /* Permet d'ajouter un overlay */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Overlay sombre */
+.container::before {
+  content: "";
+  position: fixed; /* Positionné par rapport à la fenêtre */
+  top: 0;
+  left: 0;
+  width: 100vw;  /* Utilisation de 100% de la largeur de la fenêtre */
+  height: 100vh; /* Utilisation de 100% de la hauteur de la fenêtre */
+  background: rgba(188, 166, 166, 0.5);  /* Une couleur sombre avec une opacité de 70% */
+  z-index: 0; /* Assure que l'overlay est derrière le contenu mais devant l'image de fond */
+}
+
+/* Contenu de la page */
+.container > * {
+  z-index: 0; /* S'assure que le contenu reste au-dessus de l'overlay */
+}
+
+  /* Header logo*/
+  .header {
+    color: black;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    position: absolute;
+    top: 0;
+   margin-right: 40%;
+  }
+
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .logo img {
+    width: 50px;
+    margin-right: 10px;
+  }
+  
+  .left-section {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 2; /* Au-dessus de l'overlay */
+  }
+
+  
+  /* Main Content */
+  .main {
+    color: black;
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+ /* Conteneur principal */
+ .search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    width: 100%;
+    margin:  40px auto;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+/* Style global pour la barre de navigation */
+.nav {
+  position: absolute; /* Positionne la barre dans le coin supérieur gauche */
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around; /* Espacement égal entre les éléments */
+  /*align-items: center; /* Centre les éléments verticalement */
+  /*background-color: #333; /* Couleur de fond sombre pour la barre */
+  padding: 10px 0; /* Espacement interne pour la barre */
+  width: 50%; /* Prend toute la largeur */
+  z-index: 100; /* Assure que la barre reste au-dessus du contenu */
+  margin-left: 700px;
+  margin-top: 50px;
+
+}
+
+/* Style des liens de la navigation */
+.nav a {
+  color: white; /* Texte blanc pour les liens */
+  text-decoration: none; /* Supprime les soulignements */
+  font-size: 16px; /* Taille de police */
+  padding: 10px 15px; /* Espacement interne pour les liens */
+  transition: background-color 0.3s ease; /* Animation pour le survol */
+}
+
+/* Survol des liens */
+.nav a:hover {
+  background-color: #8f8f8f; /* Couleur de fond verte au survol */
+  border-radius: 5px; /* Bord arrondi au survol */
+}
+
+/* Style pour le bouton Login */
+.nav button {
+  padding: 10px 20px; /* Espacement interne */
+  font-size: 16px; /* Taille de police */
+  background-color: #f2eeee; /* Couleur de fond verte */
+  color: rgb(9, 7, 7); /* Texte blanc */
+  border: none; /* Supprime les bordures */
+  border-radius: 5px; /* Bord arrondi */
+  cursor: pointer; /* Curseur pointer pour indiquer l'interaction */
+  transition: background-color 0.3s ease; /* Animation pour le survol */
+}
+
+/* Survol du bouton Login */
+.nav button:hover {
+  background-color: #f1eaea; /* Couleur verte plus foncée au survol */
+}
+
+/* Style pour le bouton Login quand il est actif */
+.nav button:focus {
+  outline: none; /* Retire le contour par défaut */
+}
+
+/* class main*/
+.main{
+  margin-bottom: 100px;
+
+}
+
+/* Bloc "Sfax" */
+  .location {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px ;
+    border-radius: 10px;
+    font-weight: bold;
+    gap: 5px;
+  }
+
+/* Input + icône de recherche */
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background: #f5f5f5;
+    padding: 10px;
+    margin: 0 15px;
+    border-radius: 20px;
+  }
+
+  .input-wrapper i {
+    color: gray;
+    margin-right: 8px;
+  }
+
+  .input-wrapper input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    width: 100%;
+    color: gray;
+  }
+
+/* Bouton Search */
+  .search-button {
+    font-weight: bold;
+    background: black;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+
+  .search-button:hover {
+    background: #333;
+  }
+/* Style pour le conteneur des icônes sociales */
+.social-icons {
+  display: flex; /* Utilise flexbox pour disposer les éléments en ligne */
+  justify-content: space-around; /* Espacement égal entre les éléments */
+  gap: 10px; /* Espacement entre les icônes (ajuste cette valeur selon tes besoins) */
+}
+
+/* Optionnel : pour ajuster la taille des images des icônes */
+.social-icons img {
+  width: 30px; /* Taille des icônes */
+  height: auto; /* Assure que les proportions des images restent correctes */
+}
+
+
+

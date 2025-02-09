@@ -1,0 +1,27 @@
+<div class="background">
+  <img src="assets/ImgBackground.png" alt="Background">
+</div>
+
+<div class="container"> 
+  <h2>ReserveTable</h2> <!-- Titre centré ajouté ici -->
+
+  <form (ngSubmit)="submitReservation()" class="reservation-form" novalidate>
+      <label for="name">Name :</label>
+      <input id="name" type="text" [(ngModel)]="reservation.name" name="name" required>
+    
+      <label for="phone">Phone :</label>
+      <input id="phone" type="number" [(ngModel)]="reservation.phone" name="phone" required>
+
+      <label for="people">People :</label>
+      <input id="people" type="number" [(ngModel)]="reservation.people" name="people" required>
+
+      <label for="date">Date :</label>
+      <input id="date" type="date" [(ngModel)]="reservation.date" name="date" required>
+    
+      <label for="time">Time :</label>
+      <input id="time" type="time" [(ngModel)]="reservation.time" name="time" required>
+    
+      <button type="submit">To book</button>
+  </form>
+</div>
+

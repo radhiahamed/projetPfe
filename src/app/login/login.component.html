@@ -1,0 +1,33 @@
+<div class="background">
+    <img src="assets/ImgBackground.png" alt="Background">
+  </div>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+       
+        
+      </div>
+
+    <h1>Login</h1>
+  
+    <div class="login-container">
+        <form action="/login" method="POST">
+            <!-- Champ pour l'email -->
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required>
+
+            <!-- Champ pour le mot de passe -->
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" required>
+
+            <!-- Bouton de soumission -->
+            <button type="submit">LOGIN</button>
+
+            <!-- Lien pour la récupération de mot de passe -->
+            <p><a href="/forgot-password">Forgotten password ?</a></p>
+        </form>
+    </div>
+
+
