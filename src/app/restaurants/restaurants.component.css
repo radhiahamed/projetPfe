@@ -96,5 +96,20 @@ body {
   border-radius: 5px;
   width: 200px;
 }
+.open {
+  color: green;
+  font-weight: bold;
+}
+
+.closed {
+  color: red;
+  font-weight: bold;
+}
+
+.toggle-text {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
 
 
