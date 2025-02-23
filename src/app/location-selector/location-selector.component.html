@@ -1,0 +1,20 @@
+<div class="location-container" (click)="toggleDropdown()">
+    <i class="fa fa-map-marker"></i>
+    <input 
+      type="text" 
+      [value]="searchCity" 
+      readonly
+    />
+    <i class="fa fa-chevron-down dropdown-icon"></i>
+  
+    <!-- Liste des suggestions -->
+    <ul class="dropdown-list" *ngIf="showDropdown">
+      <li (click)="detectLocation()">
+        <i class="fa fa-location-arrow"></i> Autour de moi
+      </li>
+      <li *ngFor="let city of filteredCities" (click)="selectCity(city)">
+        {{ city }}
+      </li>
+    </ul>
+  </div>
+  

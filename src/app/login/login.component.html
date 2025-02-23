@@ -2,31 +2,43 @@
     <img src="assets/ImgBackground.png" alt="Background">
   </div>
 
-<div class="container">
-    <!-- Header -->
-    <header class="header">
-      <div class="logo">
-       
-        
-      </div>
-
-    <h1>Login</h1>
+  <div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">LOGIN</h2>
+            <form [formGroup]="myForm" (ngSubmit)="login()">
   
-    <div class="login-container">
-        <form action="/login" method="POST">
-            <!-- Champ pour l'email -->
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
+    <!-- Champ Email -->
+    <div class="row">
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+            [class.is-invalid]="email?.invalid && email?.touched">
+        <div *ngIf="email?.invalid && email?.touched" class="text-danger">
+            <small *ngIf="email?.errors?.['required']">Email is required.</small>
+            <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+        </div>
+    </div>
 
-            <!-- Champ pour le mot de passe -->
-            <label for="password">Password :</label>
-            <input type="password" id="password" name="password" required>
-
+    <!-- Champ Password -->
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter Password"
+            [class.is-invalid]="password?.invalid && password?.touched">
+        <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+            <small *ngIf="password?.errors?.['required']">Password is required.</small>
+            <small *ngIf="password?.errors?.['minlength']">Minimum 6 characters required.</small>
+        </div>
+    </div>
+  </div>
             <!-- Bouton de soumission -->
-            <button type="submit">LOGIN</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="myForm.invalid">
+              LOGIN
+          </button>
 
             <!-- Lien pour la récupération de mot de passe -->
-            <p><a href="/forgot-password">Forgotten password ?</a></p>
+            <p><a href="/forgot-password">Forgot password ?</a></p>
+            <p><a href="/register">Create an account !</a></p>
         </form>
     </div>
 

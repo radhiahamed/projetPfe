@@ -1,0 +1,85 @@
+<div class="background">
+    <img src="assets/ImgBackground.png" alt="Background">
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">Create an Account!</h2>
+
+            
+            <form [formGroup]="myForm" (ngSubmit)="register()">
+                
+                <!-- Champ First Name -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="firstname">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstname" placeholder="First Name"
+                            [class.is-invalid]="firstname?.invalid && firstname?.touched">
+                        <div *ngIf="firstname?.invalid && firstname?.touched" class="text-danger">
+                            <small *ngIf="firstname?.errors?.['required']">First name is required.</small>
+                            <small *ngIf="firstname?.errors?.['pattern']">Only letters are allowed.</small>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastname" placeholder="Last Name"
+                            [class.is-invalid]="lastname?.invalid && lastname?.touched">
+                        <div *ngIf="lastname?.invalid && lastname?.touched" class="text-danger">
+                            <small *ngIf="lastname?.errors?.['required']">Last name is required.</small>
+                            <small *ngIf="lastname?.errors?.['pattern']">Only letters are allowed.</small>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Champ Email -->
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter Email"
+                        [class.is-invalid]="email?.invalid && email?.touched">
+                    <div *ngIf="email?.invalid && email?.touched" class="text-danger">
+                        <small *ngIf="email?.errors?.['required']">Email is required.</small>
+                        <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+                    </div>
+                </div>
+
+                <!-- Champ Password -->
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Enter Password"
+                        [class.is-invalid]="password?.invalid && password?.touched">
+                    <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+                        <small *ngIf="password?.errors?.['required']">Password is required.</small>
+                        <small *ngIf="password?.errors?.['minlength']">Minimum 6 characters required.</small>
+                    </div>
+                </div>
+
+                <!-- Champ Confirm Password -->
+                <div class="mb-3">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password"
+                        [class.is-invalid]="confirmPassword?.invalid && confirmPassword?.touched">
+                    <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="text-danger">
+                        <small *ngIf="confirmPassword?.errors?.['required']">Please confirm your password.</small>
+                        <small *ngIf="myForm.errors?.['passwordMismatch']">Passwords do not match.</small>
+                    </div>
+                </div>
+
+                <!-- Bouton de soumission -->
+                <button type="submit" class="btn btn-primary w-100" [disabled]="myForm.invalid">
+                    Register Account
+                </button>
+
+                <!-- Liens -->
+                <p class="text-center mt-3">
+                    <a routerLink="/forgot-password">Forgot password?</a>
+                </p>
+                <p class="text-center">
+                    <a routerLink="/login"> Already have an account? Login!</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

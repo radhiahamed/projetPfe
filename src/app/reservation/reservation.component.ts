@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reservation',
@@ -6,20 +7,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
+  restaurantName: string = 'Restaurants';
+  tableNumber: string = '0';
+  reservationConfirmed: boolean = false;
+  
   reservation = {
     name: '',
     date: '',
     time: '',
     people: null,
-    phone:''
+    phone: 'number'
   };
-  submitReservation() {
-    console.log('Réservation confirmée:', this.reservation);
-    alert(`Reservation for ${this.reservation.name} on ${this.reservation.date} at ${this.reservation.time}`);
-  }
-  constructor() { }
+
+  
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    // Récupérer les paramètres de l'URL
+    this.route.paramMap.subscribe(params => {
+      this.restaurantName = params.get('restaurantName') || '';
+      this.tableNumber = params.get('tableNumber') || '0';
+    });
   }
 
+  submitReservation() {
+    this.reservationConfirmed = true;
+    alert(`Réservation confirmée pour la table ${this.tableNumber} au restaurant ${this.restaurantName}`);
+  }
 }

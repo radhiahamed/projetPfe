@@ -31,12 +31,14 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/template/css/sb-admin-2.min.css",
                 "node_modules/font-awesome/css/font-awesome.min.css",
-             "src/styles.css"
+             "src/styles.css",
+             "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
              "src/assets/template/vendor/jquery/jquery.min.js",
               "src/assets/template/js/sb-admin-2.min.js",
                 "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+                
             ]
           
           },

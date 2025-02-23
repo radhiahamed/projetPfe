@@ -1,45 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
   styleUrls: ['./restaurants.component.css']
 })
-export class RestaurantsComponent implements OnInit {
-  
- showHoraires: boolean = false; 
-  horaires = { ouverture: "10:00", fermeture: "23:30" }; // Heures d'ouverture
-  estOuvert: boolean = false;
-  private intervalId: any;
+export class RestaurantsComponent {
 
-  constructor() {}
+  restaurants = [
+    { id: 1, name: 'La Mascotte', image: 'assets/mascotte.png', description: 'Seafood and traditional French cuisine.', address: '1-361 Rte du Kaïd Mhamed, Sfax 3039', phone: '26 015 115', rating: 4 },
+    { id: 2, name: 'TONTON', image: 'assets/ton ton.png', description: 'Italian, European cuisine.', address: 'City Centre Building, Rue Majida Boulila', phone: '26 719 300', rating: 4 },
+    { id: 3, name: 'El Kolla', image: 'assets/el kolla.png', description: 'Fish and seafood in a warm atmosphere.', address: 'km3 Rte Soukra, Sfax 3000', phone: '55 185 581', rating: 4 },
+    { id: 4, name: 'La Raclette', image: 'assets/la raclette.jpg', description: 'Swiss and European cuisine.', address: 'Gremda km 4.5, Sfax', phone: '93 808 809', rating: 4 },
+    { id: 5, name: 'Trocadero Sfax', image: 'assets/trocadero.png', description: 'Restaurant and lounge café.', address: 'Route Lafrane km 4, Sfax', phone: '29 160 341', rating: 4 },
+    { id: 6, name: 'Pomme de Mer', image: 'assets/Pomme-de-mer.jpg', description: 'Fish and seafood.', address: 'Route Kaid Mohamad km2, Sfax 3002', phone: '21 297 910', rating: 4 },
+    { id: 7, name: 'La Voile Blanche', image: 'assets/voile blanche.jpg', description: 'Fish and seafood.', address: 'Route Teniour, Sfax', phone: '22 287 799', rating: 4 },
+    { id: 8, name: 'Le Raffiné', image: 'assets/leraffine.jpg', description: 'French and Italian cuisine.', address: 'Rte Gremda, Sfax 3000', phone: '20 302 414', rating: 4 },
+  ];
 
-  ngOnInit(): void {
-    this.verifierOuverture(); // Vérification initiale
-    this.intervalId = setInterval(() => this.verifierOuverture(), 60000); // Vérifier toutes les 60 sec
+  displayedRestaurants = 8; // Nombre de restaurants affichés au départ
+
+  showMore() {
+    this.displayedRestaurants += 8; // Augmente le nombre affiché
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId); // Nettoyer l'intervalle quand le composant est détruit
+  getStars(rating: number | undefined): string {
+    if (rating === undefined) {
+      return '☆☆☆☆☆';  // Valeur par défaut si rating est undefined
+    }
+    const fullStars = '⭐'.repeat(Math.floor(rating));
+    const halfStar = rating % 1 !== 0 ? '⭐' : '';
+    const emptyStars = '☆'.repeat(5 - Math.ceil(rating));
+    return fullStars + halfStar + emptyStars;
   }
 
-  toggleHoraires() {
-    this.showHoraires = !this.showHoraires;
-  }
-
-  verifierOuverture() {
-    const now = new Date();
-    const heureActuelle = now.getHours() * 60 + now.getMinutes();
-    
-    const [hOuverture, mOuverture] = this.horaires.ouverture.split(':').map(Number);
-    const [hFermeture, mFermeture] = this.horaires.fermeture.split(':').map(Number);
-
-    const ouvertureMin = hOuverture * 60 + mOuverture;
-    const fermetureMin = hFermeture * 60 + mFermeture;
-
-    this.estOuvert = heureActuelle >= ouvertureMin && heureActuelle < fermetureMin;
-
-    
+  constructor(private router: Router) {}
+  goToTables(restaurantName: String) {
+    this.router.navigate(['/tables', restaurantName]); 
   }
 }

@@ -23,13 +23,19 @@ import { AngularFireModule} from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { ContactComponent } from './contact/contact.component';
+import { LocationSelectorComponent } from './location-selector/location-selector.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
+
+import { MapComponent, SafeUrlPipe } from './map/map.component';
+import { TableComponent } from './table/table.component';
+import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RestaurantsComponent,
     ReservationComponent,
     LoginComponent,
     MenuComponent,
@@ -37,7 +43,12 @@ import { ContactComponent } from './contact/contact.component';
     FooterComponent,
     AboutComponent,
     ContactComponent,
-    
+    LocationSelectorComponent,
+    MapComponent,
+    TableComponent,
+    RegisterComponent,
+    RestaurantsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -53,6 +64,8 @@ import { ContactComponent } from './contact/contact.component';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    GoogleMapsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

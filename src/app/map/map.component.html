@@ -1,0 +1,18 @@
+<div class="container">
+    <!-- Liste des villes à gauche -->
+    <div class="locations">
+      <label for="districts">Choose a city:</label>
+      <select id="districts" (change)="onCityChange($event)">
+        <option value="sfax">Sfax</option>
+        <option value="city1">Ville 1</option>
+        <option value="city2">Ville 2</option>
+        <!-- Ajouter d'autres villes ici -->
+      </select>
+    </div>
+  
+    <!-- Carte de Sfax à droite -->
+    <div class="map-container">
+      <iframe id="map" width="100%" height="100%" style="border: none;"  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d52451.972224413024!2d10.728621787556978!3d34.7493384461542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRestaurants!5e0!3m2!1sfr!2stn!4v1739746402386!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+  

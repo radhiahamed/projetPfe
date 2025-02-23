@@ -1,0 +1,58 @@
+.tables-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.table-card {
+  width: 90%;
+  max-width: 650px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.reserved {
+  background-color: #ffe5e5;
+  border: 2px solid #d9534f;
+  color: #d9534f;
+}
+
+.available {
+  background-color: #e8fce8;
+  border: 2px solid #28a745;
+  color: #28a745;
+}
+
+.reserve-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reserve-btn:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.reserved-message {
+  font-size: 16px;
+  font-weight: bold;
+  color: #d9534f;
+}
