@@ -26,11 +26,13 @@ import { ContactComponent } from './contact/contact.component';
 import { LocationSelectorComponent } from './location-selector/location-selector.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 
-
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MapComponent, SafeUrlPipe } from './map/map.component';
 import { TableComponent } from './table/table.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TableComponent,
     RegisterComponent,
     RestaurantsComponent,
+    OrderComponent,
+   
   
   ],
   imports: [
@@ -63,6 +67,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    provideFirestore(() => getFirestore()),
     AngularFireDatabaseModule,
     GoogleMapsModule,
     ReactiveFormsModule,

@@ -1,0 +1,50 @@
+<div class="min-h-screen flex items-center justify-center bg-green-50">
+    <div class="bg-white shadow-lg rounded-xl p-8 flex w-[90vw] max-w-6xl">
+      
+      <!-- 📝 Formulaire de commande -->
+      <div class="w-1/2 px-8">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">📦 Delivery</h2>
+  
+        <label class="block text-gray-600 font-medium">Delivery address :</label>
+        <input type="text" [(ngModel)]="order.deliveryAddress" name="address"
+               class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-300" required>
+  
+        <label class="block text-gray-600 font-medium mt-4">Payment method :</label>
+        <select [(ngModel)]="order.paymentMethod" (change)="updateDeliveryFees()">
+            <option value="card">💳 Carte Bancaire</option>
+            <option value="cash">💵 Espèces</option>
+          </select>
+  
+        <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+          <p class="text-gray-700 font-medium">Shipping costs: 
+            <strong class="text-blue-600">{{ order.deliveryFees }} TND</strong>
+          </p>
+          <p class="text-gray-700 font-medium">Total: 
+            <strong class="text-green-600">{{ order.totalPrice + order.deliveryFees }} TND</strong>
+          </p>
+        </div>
+  
+        <button type="submit" (click)="submitOrder()" 
+                [disabled]="isLoading"
+                class="w-full mt-4 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition">
+          {{ isLoading ? "⏳ Processing..." : "🚀 Place the order" }}
+        </button>
+      </div>
+  
+      <!-- 🎨 Image -->
+      <div class="w-1/2 flex flex-col justify-center items-center p-8">
+        <img src="assets/livraison.png" alt="Food Delivery" 
+             class="w-full max-w-lg rounded-lg shadow-lg">
+  
+        <h3 class="text-xl font-bold text-gray-800 mt-6">😋 Fancy a good meal?</h3>
+        <p class="text-gray-600 text-center px-4">Discover our varied menu and enjoy delicious dishes prepared with care.</p>
+  
+        <a routerLink="/menu" p
+           class="mt-4 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
+          🍽️ See the menu
+        </a>
+      </div>
+  
+    </div>
+  </div>
+  

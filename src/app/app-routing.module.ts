@@ -12,6 +12,7 @@ import { ContactComponent } from './contact/contact.component';
 import { MapComponent } from './map/map.component';
 import { TableComponent } from './table/table.component';
 import { RegisterComponent } from './register/register.component';
+import { OrderComponent } from './order/order.component';
 
 
 
@@ -30,6 +31,9 @@ const routes: Routes = [
 { path: 'reservation/:restaurantName', component: ReservationComponent },
 { path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },
 {path: 'table', component: TableComponent},
+{path: 'order', component: OrderComponent},
+{ path: '', redirectTo: '/order', pathMatch: 'full' } , // Redirection vers /order par défaut
+
 { path: 'tables/:id', component: TableComponent },
 { path: 'tables/:id', component: TableComponent },
 { path: '**', redirectTo: '' }, // Redirection pour les URL inconnues

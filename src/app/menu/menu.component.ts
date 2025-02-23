@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DishService } from '../dish.service'; 
+import { OrderService } from '../order.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,6 +8,11 @@ import { DishService } from '../dish.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
+  menuItems = [
+    { name: 'Pizza', price: 15 },
+    { name: 'Burger', price: 10 },
+    { name: 'Sushi', price: 20 }
+  ];
   dishes = [
     {
       name: 'chicken couscous',
@@ -66,7 +72,13 @@ export class MenuComponent {
     },
   ];
 
-  constructor(public dishService: DishService) {}
+  constructor(public dishService: DishService, private orderService: OrderService) {}
+  ngOnInit(): void {}
+
+  addToOrder(item: any) {
+    this.orderService.addToOrder(item);
+    alert(item.name + " ajouté au panier !");
+  }
 
   openDishDetails(dish: any) {
     this.dishService.selectDish(dish);

@@ -12,6 +12,16 @@
     </div>
   </main>
   
+  <div *ngFor="let dish of menuItems">
+  <h3>{{ dish.name }}</h3>
+  <p>{{ dish.price }} TND</p>
+  <button (click)="addToOrder(dish)">🛒 Ajouter au panier</button>
+</div>
+
+<a routerLink="/order">
+  <button>📦 Passer à la livraison</button>
+</a>
+
   <!-- Modal pour afficher les détails du plat -->
   <div *ngIf="(dishService.selectedDish$ | async) as selectedDish" class="modal-overlay" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
