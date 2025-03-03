@@ -13,6 +13,7 @@ import { MapComponent } from './map/map.component';
 import { TableComponent } from './table/table.component';
 import { RegisterComponent } from './register/register.component';
 import { OrderComponent } from './order/order.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -30,21 +31,23 @@ const routes: Routes = [
 {path: 'map', component: MapComponent},
 { path: 'reservation/:restaurantName', component: ReservationComponent },
 { path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },
-{path: 'table', component: TableComponent},
+{path: 'tables', component: TableComponent},
 {path: 'order', component: OrderComponent},
-{ path: '', redirectTo: '/order', pathMatch: 'full' } , // Redirection vers /order par défaut
-
-{ path: 'tables/:id', component: TableComponent },
 { path: 'tables/:id', component: TableComponent },
 { path: '**', redirectTo: '' }, // Redirection pour les URL inconnues
 { path: 'table/:restaurantName', component: TableComponent }, // Récupérer le nom du restaurant
 { path: 'reservation/:restaurantName', component: ReservationComponent }, // Récupérer le nom du restaurant
+{ path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },
+{ path: '', redirectTo: '/restaurants', pathMatch: 'full' },
+{ path: '**', redirectTo: '/restaurants' },  // ✅ Redirection des erreurs
+
 { path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },  // Assure-toi que ça inclut tableNumber
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+ 
 })
 export class AppRoutingModule { }

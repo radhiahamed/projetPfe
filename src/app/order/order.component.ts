@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 
 
 @Component({
@@ -11,41 +10,66 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 export class OrderComponent implements OnInit {
   order = {
     deliveryAddress: '',
+    deliveryPhone: '',
     paymentMethod: 'card',  // Mode de paiement par défaut
     deliveryFees: 0,  // Par défaut, livraison gratuite
-    totalPrice: 50  // Exemple de prix initial de la commande
+    totalPrice: 0,  // Exemple de prix initial de la commande
+    items: [],
+    cardNumber: '',   // Ajout des informations de la carte
+    expiryDate: '',   // Date d'expiration de la carte
+    cvv: ''           // Code de sécurité CVV
+
   };
 
-  isLoading = false;  // Pour afficher un indicateur de chargement
+  isLoading = false;
+  cart: any[] = [];
 
-  constructor(private orderService: OrderService, ) {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.updateDeliveryFees(); // Mise à jour au chargement
+    this.cart = this.orderService.getCart();
+    this.order.totalPrice = this.orderService.getTotal();
+    this.updateDeliveryFees();
   }
 
-  // ✅ Met à jour les frais de livraison en fonction du mode de paiement
   updateDeliveryFees() {
-    if (this.order.paymentMethod === 'card') {
-      this.order.deliveryFees = 0;  // Livraison gratuite
-    } else {
-      this.order.deliveryFees = 5;  // Frais supplémentaires pour paiement en espèces
-    }
+    this.order.deliveryFees = this.order.paymentMethod === 'card' ? 0 : 5;
   }
 
-  // ✅ Soumission de la commande
   submitOrder() {
-    this.order.totalPrice += this.order.deliveryFees; // Ajouter les frais de livraison au total
-    this.isLoading = true;  // Activer l'indicateur de chargement
+    if (!this.order.deliveryAddress || !this.order.deliveryPhone) {
+      alert('Veuillez remplir toutes les informations !');
+      return;
+    }
+     // Validation si mode de paiement est par carte
+     if (this.order.paymentMethod === 'card') {
+      if (!this.order.cardNumber || !this.order.expiryDate || !this.order.cvv) {
+        alert('Veuillez entrer les informations de votre carte bancaire.');
+        return;
+      }
+
+      // Ici, tu intégrerais le service de paiement sécurisé comme Stripe
+      this.processCardPayment();
+    }
+
+    this.order.totalPrice += this.order.deliveryFees;
+    this.isLoading = true;
 
     this.orderService.placeOrder(this.order)
       .then(() => {
         this.isLoading = false;
-        alert('✅ Order confirmed successfully!');
+        alert('✅ Commande confirmée avec succès !');
+        this.orderService.clearCart();
       })
       .catch((error: any) => {
         this.isLoading = false;
-        console.error('Error while ordering:', error);
+        console.error('Erreur lors de la commande :', error);
       });
+  }
+  // Méthode pour traiter le paiement par carte bancaire
+  processCardPayment() {
+    // Logique pour envoyer les détails de la carte à Stripe ou un autre service
+    console.log('Processing payment with card:', this.order.cardNumber);
+    // Intégrer ici l'API de Stripe ou autre service
   }
 }

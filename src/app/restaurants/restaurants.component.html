@@ -12,14 +12,11 @@
         <span class="restaurant-rating">{{ getStars(restaurant.rating) }}</span>
       </div>
 
-      <!-- Bouton "Réserver" -->
-      <button (click)="goToTables(restaurant.name)">To Book</button>
+      <!-- Bouton "Voir les tables" -->
+      <button (click)="goToTables(restaurant.id, restaurant.name)">To Book</button>
 
     </div>
   </div>
 </div>
 
-<!-- Bouton "Voir plus" -->
-<button *ngIf="displayedRestaurants < restaurants.length" (click)="showMore()" class="see-more-button">
-  Voir plus
-</button>
+

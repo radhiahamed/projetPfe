@@ -19,24 +19,27 @@ export class RestaurantsComponent {
     { id: 8, name: 'Le Raffiné', image: 'assets/leraffine.jpg', description: 'French and Italian cuisine.', address: 'Rte Gremda, Sfax 3000', phone: '20 302 414', rating: 4 },
   ];
 
-  displayedRestaurants = 8; // Nombre de restaurants affichés au départ
 
-  showMore() {
-    this.displayedRestaurants += 8; // Augmente le nombre affiché
-  }
-
-  getStars(rating: number | undefined): string {
-    if (rating === undefined) {
-      return '☆☆☆☆☆';  // Valeur par défaut si rating est undefined
-    }
-    const fullStars = '⭐'.repeat(Math.floor(rating));
-    const halfStar = rating % 1 !== 0 ? '⭐' : '';
-    const emptyStars = '☆'.repeat(5 - Math.ceil(rating));
-    return fullStars + halfStar + emptyStars;
-  }
+  displayedRestaurants = this.restaurants.length; // Pour afficher tous les restaurants
+goToReservation: any;
 
   constructor(private router: Router) {}
-  goToTables(restaurantName: String) {
-    this.router.navigate(['/tables', restaurantName]); 
+
+  ngOnInit(): void {}
+
+  // 🔹 Rediriger vers la page des tables
+  goToTables(restaurantId: number, restaurantName: string) {
+    console.log('Navigation vers tables:', restaurantId, restaurantName); // Debug
+    this.router.navigate(['/tables'], { 
+      queryParams: { restaurantId: restaurantId, restaurant: restaurantName } 
+    });
+  }
+  
+
+  // 🔹 Afficher les étoiles selon la note du restaurant
+  getStars(rating: number): string {
+    const fullStar = '⭐'.repeat(Math.floor(rating));
+    const halfStar = rating % 1 >= 0.5 ? '✨' : ''; // Demi-étoile si besoin
+    return fullStar + halfStar;
   }
 }

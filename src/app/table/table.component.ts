@@ -1,17 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'; // Importation d'ActivatedRoute
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
-  restaurantName: string = ''; // Initialiser la variable restaurantName
+export class TableComponent implements OnInit {
+  selectedRestaurantName!: string;
   tables = [
     { number: 1, description: 'Table with a panoramic city view, perfect for a romantic experience.', reserved: false },
-    { number: 2, description: 'A friendly space for groups of friends, with a warm and cozy atmosphere.', reserved: true },
+    { number: 2, description: 'A friendly space for groups of friends, with a warm and cozy atmosphere.', reserved: false },
     { number: 3, description: 'Spacious family table, ideal for sharing unforgettable moments.', reserved: false },
-    { number: 4, description: 'Outdoor terrace with a gentle breeze and a stunning view.', reserved: true },
+    { number: 4, description: 'Outdoor terrace with a gentle breeze and a stunning view.', reserved: false },
     { number: 5, description: 'Cozy and intimate corner, perfect for a romantic dinner.', reserved: false },
     { number: 6, description: 'VIP table with premium service and a touch of elegance.', reserved: false },
     { number: 7, description: 'Lounge-style ambiance with dim lighting for a relaxing evening.', reserved: true },
@@ -19,15 +20,28 @@ export class TableComponent {
   ];
 
 
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    // Récupère le restaurantName depuis l'URL et l'affiche
-    this.restaurantName = this.route.snapshot.paramMap.get('restaurantName') || '';
-    console.log('Restaurant choisi:', this.restaurantName);  // Vérifie dans la console
-  }
+ 
+    // Récupération de l’ID et du nom du restaurant depuis les paramètres de l’URL
+    ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {
+        this.selectedRestaurantName = params['restaurant'] ? params['restaurant'] : 'Restaurant inconnu'; 
+      });
+    
+      console.log('Restaurant sélectionné:', this.selectedRestaurantName);
+    }
+    
+    
 
+  // Redirection vers la page de réservation avec les paramètres (nom du restaurant et numéro de table)
   goToReservation(tableNumber: number) {
-    this.router.navigate(['/reservation', this.restaurantName, tableNumber]);  // Envoie du restaurantName et du numéro de la table
+    this.router.navigate(['/reservation'], { 
+      queryParams: { 
+        restaurant: this.selectedRestaurantName, // ✅ Transmettre le bon nom du restaurant
+        table: tableNumber 
+      } 
+    });
   }
 }

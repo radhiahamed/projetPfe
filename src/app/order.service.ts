@@ -1,31 +1,37 @@
 import { Injectable } from '@angular/core';
-
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  selectedItems: any;
-  constructor() {}
-  addToOrder(item: any) {
-    this.selectedItems.push(item);
+  private cart: any[] = [];
+  private totalPrice: number = 0;
+
+  constructor(private firestore: AngularFirestore) {}
+
+  addToOrder(plat: any) {
+    this.cart.push(plat);
+    this.calculateTotal();
   }
 
-  getOrderItems() {
-    return this.selectedItems;
+  clearCart() {
+    this.cart = [];
+    this.totalPrice = 0;
   }
 
-  clearOrder() {
-    this.selectedItems = [];
+  getCart() {
+    return this.cart;
   }
 
+  getTotal() {
+    return this.totalPrice;
+  }
 
-  // ✅ Simulation de commande (peut être connecté à Firebase plus tard)
-  placeOrder(order: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      console.log('📦 Order in progress :', order);
-      setTimeout(() => {
-        resolve('Order successfully validated ✅');
-      }, 2000); // Simule un délai de 2 secondes
-    });
+  calculateTotal() {
+    this.totalPrice = this.cart.reduce((sum, item) => sum + item.price, 0);
+  }
+
+  placeOrder(orderData: any) {
+    return this.firestore.collection('orders').add(orderData);
   }
 }

@@ -1,36 +1,49 @@
-<header class="title">
-    <h1>Restaurant Menu</h1>
-  </header>
-  
-  <main class="container">
-    <!-- Galerie des plats -->
-    <div class="gallery">
-      <figure *ngFor="let dish of dishes" (click)="openDishDetails(dish)">
-        <img [src]="dish.imageUrl" [alt]="dish.name">
-        <figcaption>{{ dish.name }}</figcaption>
-      </figure>
-    </div>
-  </main>
-  
-  <div *ngFor="let dish of menuItems">
-  <h3>{{ dish.name }}</h3>
-  <p>{{ dish.price }} TND</p>
-  <button (click)="addToOrder(dish)">🛒 Ajouter au panier</button>
-</div>
+<div class="container mx-auto p-8">
+  <!-- 🏷️ Titre -->
+  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">🍽️ Menu des plats</h1>
 
-<a routerLink="/order">
-  <button>📦 Passer à la livraison</button>
-</a>
-
-  <!-- Modal pour afficher les détails du plat -->
-  <div *ngIf="(dishService.selectedDish$ | async) as selectedDish" class="modal-overlay" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <h2>{{ selectedDish.name }}</h2>
-      <p>Price: {{ selectedDish.price }}</p>
-      <p>Best Restaurant: {{ selectedDish.bestRestaurant }}</p>
-      <button (click)="closeModal()">Close</button>
+  <!-- 🍔 Grille des plats -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div *ngFor="let plat of plats" class="bg-white rounded-xl shadow-lg p-4 hover:scale-105 transition">
+      <img [src]="plat.image" class="w-full h-48 object-cover rounded-lg" alt="{{ plat.name }}">
+      <h2 class="text-lg font-semibold text-center mt-3">{{ plat.name }}</h2>
+      <p class="text-center text-gray-600 mt-1 font-medium">{{ plat.price }} TND</p>
+      <button (click)="addToOrder(plat)" 
+        class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition">
+        🛒 Ajouter au panier
+      </button>
     </div>
   </div>
-  
-  <app-footer></app-footer>
-  
+
+  <!-- 🛒 Panier -->
+  <div *ngIf="cart.length > 0" class="mt-10 bg-gray-100 p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-semibold text-gray-800">🛒 Votre panier</h2>
+    <ul class="mt-3 text-gray-700">
+      <li *ngFor="let item of cart" class="flex justify-between p-2 border-b">
+        <span>{{ item.name }} ({{ item.quantity }})</span>
+        <span>{{ item.price * item.quantity }} TND</span>
+      </li>
+    </ul>
+    <div class="mt-4 flex justify-between font-bold text-lg">
+      <span>Total :</span>
+      <span>{{ getTotal() }} TND</span>
+    </div>
+    <button (click)="validateOrder()" 
+      class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-600 transition">
+      ✅ Valider la commande
+    </button>
+    <button (click)="cancelOrder()" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg w-full hover:bg-red-600 transition">
+      ❌ Annuler la commande
+    </button>
+  </div>
+
+  <!-- 🚚 Section Livraison -->
+  <div class="mt-10 bg-gray-100 p-6 rounded-lg shadow-lg">
+    <h2 class="text-xl font-semibold text-gray-800">📦 Livraison</h2>
+    <ul class="list-disc pl-5 mt-3 text-gray-700">
+      <li>🚀 Livraison en 30-45 minutes</li>
+      <li>💳 Paiement par carte ou en espèces</li>
+      <li>🚚 Frais de livraison : <b>Gratuit</b> pour les paiements en ligne, <b>5 TND</b> en espèces</li>
+    </ul>
+  </div>
+</div>

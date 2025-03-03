@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { DishService } from '../dish.service'; 
+import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,83 +8,45 @@ import { OrderService } from '../order.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  menuItems = [
-    { name: 'Pizza', price: 15 },
-    { name: 'Burger', price: 10 },
-    { name: 'Sushi', price: 20 }
+  plats = [
+    { name: 'Chicken Couscous', price: 26, image: 'assets/coscous poulet.png' },
+    { name: 'Seafood Spaghetti', price: 46, image: 'assets/spaghetti.png' },
+    { name: 'Besbes Merguez & Kadid', price: 20, image: 'assets/besbes .png' },
+    { name: 'Puttanesca', price: 15, image: 'assets/Puttanesca.png' },
+    { name: 'Bolognaise', price: 18, image: 'assets/bolognaise.png' },
+    { name: 'Seafood Pizza', price: 33, image: 'assets/pizza.png' },
+    { name: 'Sandwich Shawarma', price: 11, image: 'assets/sandwitch ton ton.png' },
+    { name: 'Burger Picador', price: 32, image: 'assets/Burger Picador.png' },
+    { name: 'Pasta crevette', price: 32, image: 'assets/image10.jpg' },
+    { name: 'Sandwich mergaz', price: 32, image: 'assets/sandwich.png' },
+    { name: 'Burger pané', price: 32, image: 'assets/burger pané.png' }
   ];
-  dishes = [
-    {
-      name: 'chicken couscous',
-      price: '26.00DT',
-      bestRestaurant: 'Mechmecha Restaurant',
-      imageUrl: 'assets/coscous poulet.png',
-      key: 'coscous'
-    },
-    {
-      name: 'Seafood Spaghetti',
-      price: '46.00DT',
-      bestRestaurant: 'Restaurant Douira',
-      imageUrl: 'assets/spaghetti.png',
-      key: 'Seafood Spaghetti'
-    },
-    {
-      name: 'Besbes Merguez & Kadid',
-      price: '20.00dt',
-      bestRestaurant: 'Restaurant Douira',
-      imageUrl: 'assets/besbes .png',
-      key: 'besbes'
-    },
-    {
-      name: 'Puttanesca',
-      price: '15.00DT',
-      bestRestaurant: 'Terminal A',
-      imageUrl: 'assets/Puttanesca.png',
-      key: 'puttanesca'
-    },
-    {
-      name: 'Bolognaise',
-      price: '18.00DT',
-      bestRestaurant: 'Terminal A',
-      imageUrl: 'assets/bolognaise.png',
-      key: 'bolognaise'
-    },
-    {
-      name: 'Seafood Pizza',
-      price: '33.00DT',
-      bestRestaurant: 'Chaaben +',
-      imageUrl: 'assets/pizza.png',
-      key: 'bolognaise'
-    },
-    {
-      name: 'Sandwich Shawarma',
-      price: '11.00DT',
-      bestRestaurant: 'TONTON',
-      imageUrl: 'assets/sandwitch ton ton.png',
-      key: 'sandwich'
-    },
-    {
-      name: 'Burger Picador',
-      price: '32.00DT',
-      bestRestaurant: 'Le Morillon',
-      imageUrl: 'assets/Burger Picador.png',
-      key: 'burger'
-    },
-  ];
+  cart = this.orderService.getCart(); 
 
-  constructor(public dishService: DishService, private orderService: OrderService) {}
-  ngOnInit(): void {}
+  constructor(private orderService: OrderService, private router: Router) {}
 
-  addToOrder(item: any) {
-    this.orderService.addToOrder(item);
-    alert(item.name + " ajouté au panier !");
+  addToOrder(plat: any) {
+    this.orderService.addToOrder(plat);
+    alert("🍽️ Plat ajouté au panier !");
   }
 
-  openDishDetails(dish: any) {
-    this.dishService.selectDish(dish);
+  cancelOrder() {
+    if (confirm("❌ Voulez-vous vraiment annuler votre commande ?")) {
+      this.orderService.clearCart();
+      alert("Commande annulée !");
+    }
   }
 
-  closeModal() {
-    this.dishService.selectDish(null); // Fermer le modal en réinitialisant le plat sélectionné
+  getTotal() {
+    return this.orderService.getTotal();
+  }
+
+  validateOrder() {
+    if (this.cart.length === 0) {
+      alert("🚫 Votre panier est vide !");
+      return;
+    }
+  
+    this.router.navigate(['/order']); // Redirection vers la page de commande
   }
 }

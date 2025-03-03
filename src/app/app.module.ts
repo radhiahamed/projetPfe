@@ -21,6 +21,7 @@ import { AboutComponent } from './about/about.component';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule} from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { ContactComponent } from './contact/contact.component';
 import { LocationSelectorComponent } from './location-selector/location-selector.component';
@@ -28,11 +29,12 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { MapComponent, SafeUrlPipe } from './map/map.component';
+import { MapComponent } from './map/map.component';
 import { TableComponent } from './table/table.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
+import { ReservationService } from './reservation.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { OrderComponent } from './order/order.component';
     RegisterComponent,
     RestaurantsComponent,
     OrderComponent,
+    
    
   
   ],
@@ -67,12 +70,13 @@ import { OrderComponent } from './order/order.component';
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    provideFirestore(() => getFirestore()),
+    AngularFirestoreModule,   // Firestore (stockage des commandes, users...)
+
     AngularFireDatabaseModule,
     GoogleMapsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [ReservationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

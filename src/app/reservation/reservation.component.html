@@ -2,29 +2,88 @@
   <img src="assets/ImgBackground.png" alt="Background">
 </div>
 
-<div class="container"> 
-  <h2>ReserveTable</h2> <!-- Titre centré ajouté ici -->
+<div class="container">
+  <h2>RESERVE TABLE</h2>
 
-  
+  <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()" class="reservation-form" novalidate>
+    <label for="name">Name :</label>
+    <input id="name" type="text" formControlName="name" class="form-control"
+      [class.is-invalid]="reservationForm.get('name')?.invalid && reservationForm.get('name')?.touched">
+    <div *ngIf="reservationForm.get('name')?.invalid && reservationForm.get('name')?.touched" class="text-danger">
+      <small *ngIf="reservationForm.get('name')?.errors?.['required']">Name is required.</small>
+      <small *ngIf="reservationForm.get('name')?.errors?.['pattern']">Only letters are allowed.</small>
+    </div>
 
-  
-  <form (ngSubmit)="submitReservation()" class="reservation-form" novalidate>
-      <label for="name">Name :</label>
-      <input id="name" type="text" [(ngModel)]="reservation.name" name="name" required>
-    
-      <label for="phone">Phone :</label>
-      <input id="phone" type="number" [(ngModel)]="reservation.phone" name="phone" required>
+    <label for="phone">Phone :</label>
+    <input id="phone" type="text" formControlName="phone" class="form-control"
+      [class.is-invalid]="reservationForm.get('phone')?.invalid && reservationForm.get('phone')?.touched">
+    <div *ngIf="reservationForm.get('phone')?.invalid && reservationForm.get('phone')?.touched" class="text-danger">
+      <small *ngIf="reservationForm.get('phone')?.errors?.['required']">Phone number is required.</small>
+      <small *ngIf="reservationForm.get('phone')?.errors?.['pattern']">Only numbers are allowed.</small>
+    </div>
 
-      <label for="people">People :</label>
-      <input id="people" type="number" [(ngModel)]="reservation.people" name="people" required>
+    <label for="people">People :</label>
+    <input id="people" type="number" formControlName="people" class="form-control"
+      [class.is-invalid]="reservationForm.get('people')?.invalid && reservationForm.get('people')?.touched">
+    <div *ngIf="reservationForm.get('people')?.invalid && reservationForm.get('people')?.touched" class="text-danger">
+      <small *ngIf="reservationForm.get('people')?.errors?.['required']">Please enter the number of people.</small>
+      <small *ngIf="reservationForm.get('people')?.errors?.['min']">Must be at least 1.</small>
+    </div>
 
-      <label for="date">Date :</label>
-      <input id="date" type="date" [(ngModel)]="reservation.date" name="date" required>
-    
-      <label for="time">Time :</label>
-      <input id="time" type="time" [(ngModel)]="reservation.time" name="time" required>
-    
-      <button type="submit">To book</button>
+    <label for="date">Date :</label>
+    <input id="date" type="date" formControlName="date" class="form-control">
+
+    <label for="time">Time :</label>
+    <input id="time" type="time" formControlName="time" class="form-control">
+
+   
+    <div class="button-group">
+      <button type="submit" class="btn btn-success">To Book</button>
+    </div>
+
+    <div class="reservation-actions">
+      <button class="btn btn-secondary" (click)="openModal()">📋 reservation lists</button>
+    </div>
   </form>
 </div>
 
+<!-- 🔹 Modale pour afficher les réservations -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Liste des Réservations</h2>
+
+    <table *ngIf="reservations.length > 0">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Persons</th>
+          <th>Date</th>
+          <th>Hours</th>
+          <th>Restaurant</th>
+          <th>Table</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of reservations">
+          <td>{{ res.name }}</td>
+          <td>{{ res.phone }}</td>
+          <td>{{ res.people }}</td>
+          <td>{{ res.date }}</td>
+          <td>{{ res.time }}</td>
+          <td>{{ res.restaurant }}</td>  <!-- ✅ Ajout du restaurant -->
+          <td>{{ res.table }}</td>       <!-- ✅ Ajout du numéro de table -->
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteReservation(res.id)">
+              🗑 Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+  </div>
+</div>

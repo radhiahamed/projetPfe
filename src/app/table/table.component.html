@@ -1,15 +1,13 @@
 <div class="tables-container">
-  <h2 class="title">Available Tables - {{ restaurantName }}</h2>
+  <h2 class="title">Available Tables - Restaurant #{{ selectedRestaurantName }}</h2>
 
   <div *ngFor="let table of tables" class="table-card" [ngClass]="{'reserved': table.reserved, 'available': !table.reserved}">
     <h3>Table {{ table.number }}</h3>
     <p>{{ table.description }}</p>
 
-    <button *ngIf="!table.reserved" class="reserve-btn" (click)="goToReservation(table.number)">
-      Reserve 
+    <button [disabled]="table.reserved" (click)="goToReservation(table.number)">
+      {{ table.reserved ? 'Reserved' : 'Reserve' }}
     </button>
-
-    <span *ngIf="table.reserved" class="reserved-message">Reserved</span>
-  </div>
 </div>
-<app-footer></app-footer>
+
+
