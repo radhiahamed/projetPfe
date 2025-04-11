@@ -1,5 +1,5 @@
 <div class="tables-container">
-  <h2 class="title">Available Tables - Restaurant #{{ selectedRestaurantName }}</h2>
+  <h2 class="title">Available Tables</h2>
 
   <div *ngFor="let table of tables" class="table-card" [ngClass]="{'reserved': table.reserved, 'available': !table.reserved}">
     <h3>Table {{ table.number }}</h3>

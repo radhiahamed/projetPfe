@@ -1,63 +1,61 @@
-<div class="info-card flex items-center gap-4">
-  <i class="icon fa fa-phone"></i>
-  <div>
-    <h3 class="font-bold text-lg">Helpline</h3>
-    <p class="text-gray-600">+216 22140104</p>
-  </div>
-</div>
-
-<div class="info-card flex items-center gap-4">
-  <i class="icon fa fa-map-marker-alt"></i>
-  <div>
-    <h3 class="font-bold text-lg">Our location</h3>
-    <p class="text-gray-600">Sfax, Tunisie</p>
-  </div>
-</div>
-
-<div class="info-card flex items-center gap-4">
-  <i class="icon fa fa-envelope"></i>
-  <div>
-    <h3 class="font-bold text-lg">Official Email</h3>
-    <p class="text-gray-600">info@reserve.com</p>
-  </div>
-</div>
-
-
-  <!-- Titre du formulaire -->
-  <div class="text-center mb-6">
-    <p class="title font-bold uppercase">Stay in touch</p>
-    <h2 class="title text-3xl">Send us a message</h2>
-  </div>
-
-  <!-- Formulaire -->
-  <form class="contact-form">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label for="nom" class="label">Name:</label>
-        <input type="text" id="nom" class="input-field" placeholder="Your name">
-      </div>
-      <div>
-        <label for="prenom" class="label">First name:</label>
-        <input type="text" id="prenom" class="input-field" placeholder="Your first name">
-      </div>
-      <div>
-        <label for="email" class="label">Email:</label>
-        <input type="email" id="email" class="input-field" placeholder="Your email">
-      </div>
-      <div>
-        <label for="telephone" class="label">Phone:</label>
-        <input type="tel" id="telephone" class="input-field" placeholder="Your phone">
-      </div>
-      <div class="col-span-2">
-        <label for="objet" class="label">Object:</label>
-        <input type="text" id="objet" class="input-field" placeholder="Subject of your message">
-      </div>
-      <div class="col-span-2">
-        <label for="message" class="label">Message:</label>
-        <textarea id="message" class="input-field h-32" placeholder="Your message"></textarea>
-      </div>
+<div class="contact-container">
+  <div class="contact-info">
+    <h2>Contact Us</h2>
+    <div class="info-item">
+      <i class="fas fa-phone"></i>
+      <p><strong>Helpline:</strong> +216 12345678</p>
     </div>
-    <button type="submit" class="btn-submit mt-6">Send</button>
-  </form>
+    <div class="info-item">
+      <i class="fas fa-map-marker"></i>
+      <p><strong>Our Location:</strong> Sfax, Tunisie</p>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-envelope"></i>
+      <p><strong>Official Email:</strong> info@reserve.com</p>
+    </div>
+     <!-- Social Icons -->
+     <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank">
+        <img src="assets/facebook.png" alt="Facebook" width="30">
+      </a>
+      <a href="https://www.instagram.com" target="_blank">
+        <img src="assets/instagram.png" alt="Instagram" width="30">
+      </a>
+      <a href="https://www.twitter.com" target="_blank">
+        <img src="assets/twitter1.png" alt="Twitter" width="30">
+      </a>
+      <a href="https://www.whatsapp.com" target="_blank">
+        <img src="assets/whatsapp.png" alt="WhatsApp" width="30">
+      </a>
+    </div>
+     <!-- Ajouter l'image ici -->
+     <div class="contact-image">
+      <img src="assets/contact.jpg" alt="Contact Image">
+    </div>
+  </div>
 
+  <div class="contact-form">
+    <h2>Send Us a Message</h2>
+    <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" ngModel required placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" ngModel required placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" ngModel placeholder="Enter your phone number">
+      </div>
+      <!-- Remplacement du champ "Subject" par "Avis" -->
+      <div class="form-group">
+        <label for="review">Your Review</label>
+        <textarea id="review" name="review" ngModel required placeholder="Write your review here..."></textarea>
+      </div>
+      <button type="submit" [disabled]="!contactForm.form.valid">Send</button>
+    </form>
+  </div>
+</div>
 <app-footer></app-footer>

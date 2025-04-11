@@ -1,85 +1,105 @@
-/* Cartes d'information */
-.info-card {
-  background: white;
-  padding: 15px; /* Réduit l'espace interne */
-  border-radius: 10px; /* Coins légèrement arrondis */
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Ombre plus légère */
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-  max-width: 300px; /* Réduit la largeur */
-  margin: auto; /* Centre les cartes */
-  margin-bottom: 20px; /* Ajoute un espace sous chaque carte */
-  flex: 1;
-  min-width: 250px; /* Ajuste la largeur des cartes */
-  max-width: 300px; /* Évite qu'elles deviennent trop grandes */
-width: 250px; /* Taille fixe pour éviter les décalages */
-margin-top: 15px;
-}
-
-
-.info-card:hover {
-  transform: translateY(-5px);
-}
-
-.icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-  color: #170d33; /* Bleu */
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #151516; /* Bleu foncé */
-}
-
-.text {
-  color: #0e0e0f; /* Gris foncé */
-}
-
-
-
-/* Formulaire */
-.contact-form {
-  background: white;
+.contact-container {
+  display: flex;
+  justify-content: space-around;
   padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
-  margin: auto;
+  background-color: #f4f4f9;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Champs de saisie */
-.label {
-  font-weight: bold;
-  color: #141414; /* Bleu foncé */
+.contact-info, .contact-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 45%;
 }
 
-.input-field {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease-in-out;
-  color: #212122; /* Gris foncé */
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Bouton Envoyer */
-.btn-submit {
+.info-item i {
+  margin-right: 15px;
+  color: #007bff;
+  font-size: 20px;
+}
+
+.contact-form h2, .contact-info h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
   display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 16px;
+}
+
+.form-group input, .form-group textarea {
   width: 100%;
   padding: 12px;
-  background: #060606; /* Bleu */
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
-.btn-submit:hover {
-  background: #696868; /* Bleu plus foncé */
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+button {
+  background-color: #19191a;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #494a4d;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.contact-image img {
+  width: 100%;
+  max-width: 500px; /* Ajustez la taille selon vos besoins */
+  height: auto;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+  min-height: 120px; /* Hauteur minimale du champ */
+}
+/* Style pour le conteneur des icônes sociales */
+.social-icons {
+  display: flex; /* Utilise flexbox pour disposer les éléments en ligne */
+  justify-content: 50px; /* Espacement égal entre les éléments */
+  gap: 10px; /* Espacement entre les icônes (ajuste cette valeur selon tes besoins) */
+}
+
+/* Optionnel : pour ajuster la taille des images des icônes */
+.social-icons img {
+  width: 30px; /* Taille des icônes */
+  height: auto; /* Assure que les proportions des images restent correctes */
 }

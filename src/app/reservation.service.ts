@@ -1,32 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collection, addDoc } from 'firebase/firestore';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private db: AngularFireDatabase) { }
 
-  addReservation(reservation: any) {
-    return this.firestore.collection('reservations').add(reservation);
+  createReservation(reservation: any) {
+    return this.db.list('reservations').push(reservation);
   }
 
   getReservations() {
-    return this.firestore.collection('reservations').snapshotChanges();
+    return this.db.list('reservations').valueChanges();
   }
 
-  deleteReservation(id: string) {
-    return this.firestore.collection('reservations').doc(id).delete();
-  }
-
-  confirmReservation(id: string) {
-    return this.firestore.collection('reservations').doc(id).update({ confirmed: true });
-  }
-
-  // Enregistrer le restaurant sélectionné dans Firestore
-  saveRestaurant(restaurantName: string) {
-    // Utiliser la collection correctement avec AngularFirestore
-    return this.firestore.collection('reservations').add({ restaurantName, status: 'pending' });
-  }
+ 
 }

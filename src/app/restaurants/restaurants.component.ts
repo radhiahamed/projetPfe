@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurants',
@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent {
+  restaurantId!: string;
 
   restaurants = [
-    { id: 1, name: 'La Mascotte', image: 'assets/mascotte.png', description: 'Seafood and traditional French cuisine.', address: '1-361 Rte du Kaïd Mhamed, Sfax 3039', phone: '26 015 115', rating: 4 },
+    { id: 1, name: 'La Mascotte', image: 'assets/mascotte.png', description: 'Seafood and traditional French cuisine.', address: ' Rte du Kaïd Mhamed, Sfax ', phone: '26 015 115', rating: 4 },
     { id: 2, name: 'TONTON', image: 'assets/ton ton.png', description: 'Italian, European cuisine.', address: 'City Centre Building, Rue Majida Boulila', phone: '26 719 300', rating: 4 },
     { id: 3, name: 'El Kolla', image: 'assets/el kolla.png', description: 'Fish and seafood in a warm atmosphere.', address: 'km3 Rte Soukra, Sfax 3000', phone: '55 185 581', rating: 4 },
     { id: 4, name: 'La Raclette', image: 'assets/la raclette.jpg', description: 'Swiss and European cuisine.', address: 'Gremda km 4.5, Sfax', phone: '93 808 809', rating: 4 },
@@ -19,22 +20,43 @@ export class RestaurantsComponent {
     { id: 8, name: 'Le Raffiné', image: 'assets/leraffine.jpg', description: 'French and Italian cuisine.', address: 'Rte Gremda, Sfax 3000', phone: '20 302 414', rating: 4 },
   ];
 
-
   displayedRestaurants = this.restaurants.length; // Pour afficher tous les restaurants
-goToReservation: any;
+  restaurant: any; // Propriété pour stocker le restaurant sélectionné
+isSearchMode: any;
+filteredRestaurants = this.restaurants;
 
-  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const restaurantName = params['name'];
+      
+      if (restaurantName) {
+        // Si un nom de restaurant est spécifié dans l'URL, filtrer pour n'afficher que ce restaurant
+        this.restaurant = this.restaurants.find(r => r.name === restaurantName);
+        this.displayedRestaurants = this.restaurant ? 1 : 0;
+      } else {
+        // Sinon, afficher tous les restaurants
+        this.displayedRestaurants = this.restaurants.length;
+      }
+    });
+  }
+  showAllRestaurants() {
+    // Réinitialiser pour afficher tous les restaurants
+    this.restaurant = null;
+    this.displayedRestaurants = this.restaurants.length;
+    
+    // Optionnel: Retirer le paramètre de l'URL
+    this.router.navigate(['/restaurant']);
+  }
   // 🔹 Rediriger vers la page des tables
   goToTables(restaurantId: number, restaurantName: string) {
     console.log('Navigation vers tables:', restaurantId, restaurantName); // Debug
-    this.router.navigate(['/tables'], { 
-      queryParams: { restaurantId: restaurantId, restaurant: restaurantName } 
+    this.router.navigate(['/tables'], {
+      queryParams: { restaurantId: restaurantId, restaurant: restaurantName }
     });
   }
-  
 
   // 🔹 Afficher les étoiles selon la note du restaurant
   getStars(rating: number): string {
@@ -42,4 +64,5 @@ goToReservation: any;
     const halfStar = rating % 1 >= 0.5 ? '✨' : ''; // Demi-étoile si besoin
     return fullStar + halfStar;
   }
+  
 }

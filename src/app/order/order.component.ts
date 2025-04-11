@@ -1,75 +1,124 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../order.service';
-
+import { MapsService } from '../maps.service';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
-  order = {
+  restaurantName: string | null = null;
+  restaurantLocation: string = '';
+
+  order: {
+    deliveryAddress: string;
+    deliveryPhone: string;
+    paymentMethod: string;
+    deliveryFees: number;
+    totalPrice: number;
+    items: any[];
+    cardNumber?: string;
+    expiryDate?: string;
+    cvv?: string;
+    restaurant?: string;
+  } = {
     deliveryAddress: '',
     deliveryPhone: '',
-    paymentMethod: 'card',  // Mode de paiement par défaut
-    deliveryFees: 0,  // Par défaut, livraison gratuite
-    totalPrice: 0,  // Exemple de prix initial de la commande
+    paymentMethod: 'card',
+    deliveryFees: 0,
+    totalPrice: 0,
     items: [],
-    cardNumber: '',   // Ajout des informations de la carte
-    expiryDate: '',   // Date d'expiration de la carte
-    cvv: ''           // Code de sécurité CVV
-
   };
 
   isLoading = false;
   cart: any[] = [];
+cancelOrder: any;
+validateOrder: any;
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private mapsService: MapsService) {}
 
   ngOnInit(): void {
-    this.cart = this.orderService.getCart();
-    this.order.totalPrice = this.orderService.getTotal();
-    this.updateDeliveryFees();
+  this.cart = this.orderService.getCart(); // Récupérer le panier
+  this.order.totalPrice = this.orderService.getTotal(); // Récupérer le total
+  this.restaurantName = this.orderService.getRestaurantName(); // Récupérer le nom du restaurant
+
+  const restaurantLocation = this.orderService.getRestaurantLocation();
+  if (restaurantLocation) {
+    this.restaurantLocation = restaurantLocation;
+  } else {
+    console.warn('Aucune localisation de restaurant trouvée.');
   }
 
-  updateDeliveryFees() {
-    this.order.deliveryFees = this.order.paymentMethod === 'card' ? 0 : 5;
+  this.updateDeliveryFees();
+}
+
+  /**
+   * Met à jour les frais de livraison en fonction de la méthode de paiement et de la distance.
+   */
+  updateDeliveryFees(): void {
+    if (this.order.paymentMethod === 'card') {
+      this.order.deliveryFees = 0;
+    } else {
+      if (!this.restaurantLocation || !this.order.deliveryAddress) {
+        console.warn('Adresse de livraison ou localisation du restaurant manquante.');
+        this.order.deliveryFees = 5; // Frais fixes en cas d'erreur
+        return;
+      }
+
+      this.mapsService
+        .getDistance(this.restaurantLocation, this.order.deliveryAddress)
+        .then((distance: number) => {
+          this.order.deliveryFees = Math.max(distance * 1, 5); // Minimum 5 TND
+        })
+        .catch((error: any) => {
+          console.error('Erreur lors du calcul de la distance :', error);
+          this.order.deliveryFees = 5; // Frais fixes en cas d'erreur
+        });
+    }
   }
 
-  submitOrder() {
+  /**
+   * Soumet la commande.
+   */
+  submitOrder(): void {
     if (!this.order.deliveryAddress || !this.order.deliveryPhone) {
-      alert('Veuillez remplir toutes les informations !');
+      alert('Veuillez remplir toutes les informations de livraison !');
       return;
     }
-     // Validation si mode de paiement est par carte
-     if (this.order.paymentMethod === 'card') {
+  
+    if (this.order.paymentMethod === 'card') {
       if (!this.order.cardNumber || !this.order.expiryDate || !this.order.cvv) {
         alert('Veuillez entrer les informations de votre carte bancaire.');
         return;
       }
-
-      // Ici, tu intégrerais le service de paiement sécurisé comme Stripe
-      this.processCardPayment();
     }
-
+  
+    // Ajouter les plats et le nom du restaurant à la commande
+    this.order.items = this.cart; // Inclure les plats sélectionnés
+    this.order.restaurant = this.restaurantName || 'Restaurant inconnu'; // Inclure le nom du restaurant
+  
     this.order.totalPrice += this.order.deliveryFees;
     this.isLoading = true;
-
-    this.orderService.placeOrder(this.order)
+  
+    this.orderService
+      .placeOrder(this.order)
       .then(() => {
         this.isLoading = false;
-        alert('✅ Commande confirmée avec succès !');
+        alert('✅ Commande enregistrée avec succès dans Firebase !');
         this.orderService.clearCart();
       })
       .catch((error: any) => {
         this.isLoading = false;
         console.error('Erreur lors de la commande :', error);
+        alert('Une erreur est survenue lors de l\'enregistrement de la commande.');
       });
   }
-  // Méthode pour traiter le paiement par carte bancaire
-  processCardPayment() {
-    // Logique pour envoyer les détails de la carte à Stripe ou un autre service
+
+  /**
+   * Traite le paiement par carte.
+   */
+  processCardPayment(): void {
     console.log('Processing payment with card:', this.order.cardNumber);
-    // Intégrer ici l'API de Stripe ou autre service
   }
 }

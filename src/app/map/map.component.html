@@ -1,22 +1,64 @@
-<div class="container">
-    <!-- Liste des villes à gauche -->
-    <div class="locations">
-      <label for="districts">Choose a city:</label>
-      <select id="districts" (change)="onCityChange($event)">
-        <option value="sfax">Sfax</option>
-        <option value="city1">Beb bhar</option>
-        <option value="city2">Lafrane </option>
-        <option value="city1">Teniour</option>
-        <option value="city2">Sokra</option>
-        <option value="city1">Gremda</option>
-        <option value="city2">Ennasria</option>
-        <!-- Ajouter d'autres villes ici -->
-      </select>
-    </div>
+<div class="header flex justify-between items-center p-4 bg-gray-800 text-white">
+  <div class="logo text-2xl font-bold">ReserveOurTable</div>
+  <div class="menu flex gap-4">
+    <a href="#" class="hover:text-gray-400">Home</a>
+    <a href="#" class="hover:text-gray-400">About</a>
+    <a href="#" class="hover:text-gray-400">Contact</a>
+  </div>
+</div>
+
+<div class="search-bar bg-gray-100 p-4 flex justify-center gap-4">
+  <input type="date" class="p-2 rounded border" />
+  <input type="time" class="p-2 rounded border" />
+  <input type="number" placeholder="Personnes" class="p-2 rounded border" />
+  <select class="p-2 rounded border" (change)="onCuisineChange($event)">
+    <option value="">Tous types de cuisine</option>
+    <option *ngFor="let cuisine of cuisineTypes" [value]="cuisine">{{ cuisine }}</option>
+  </select>
   
-    <!-- Carte de Sfax à droite -->
-    <div class="map-container">
-      <iframe id="map" width="100%" height="100%" style="border: none;"  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d52451.972224413024!2d10.728621787556978!3d34.7493384461542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRestaurants!5e0!3m2!1sfr!2stn!4v1739746402386!5m2!1sfr!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700">Rechercher</button>
+</div>
+
+<div class="content grid grid-cols-2 h-[80vh]">
+  <!-- Liste des restaurants filtrés -->
+  <div class="restaurant-list overflow-y-scroll p-4 bg-white">
+    <div *ngIf="filteredRestaurants.length > 0">
+      <h2 class="text-2xl font-semibold mb-4">Restaurants à {{ city }}</h2>
+      <div
+        *ngFor="let restaurant of filteredRestaurants"
+        class="restaurant-card p-4 mb-4 shadow-lg rounded-lg hover:shadow-xl transition"
+      >
+        <h2 class="text-xl font-semibold">{{ restaurant.name }}</h2>
+        <p class="text-gray-600">{{ restaurant.address }}</p>
+        <p class="text-yellow-500">⭐ {{ restaurant.rating }}/5</p>
+        <p *ngIf="restaurant.promo" class="text-red-500 font-bold">{{ restaurant.promo }}</p>
+        <button class="mt-2 bg-green-500 text-white p-2 rounded hover:bg-green-700" (click)="navigateToRestaurant(restaurant.id)">
+          Réserver
+        </button>
+      </div>
+    </div>
+
+    <!-- 🔥 Aucun restaurant trouvé -->
+    <div *ngIf="filteredRestaurants.length === 0">
+      <h2 class="text-2xl font-semibold text-red-500">Aucun restaurant trouvé à {{ city }}</h2>
     </div>
   </div>
-  
+
+  <!-- Carte Google Maps -->
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d52451.972224413024!2d10.728621787556978!3d34.7493384461542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRestaurants!5e0!3m2!1sfr!2stn!4v1739746402386!5m2!1sfr!2stn"
+      class="w-full h-full"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+
+<style>
+  .restaurant-card {
+    transition: transform 0.3s ease;
+  }
+  .restaurant-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

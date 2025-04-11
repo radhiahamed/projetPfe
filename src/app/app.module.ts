@@ -24,8 +24,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { ContactComponent } from './contact/contact.component';
-import { LocationSelectorComponent } from './location-selector/location-selector.component';
-import { GoogleMapsModule } from '@angular/google-maps';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -35,6 +33,8 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
 import { ReservationService } from './reservation.service';
+import { SafeUrlPipe } from './safe-url.pipe';
+
 
 @NgModule({
   declarations: [
@@ -47,13 +47,13 @@ import { ReservationService } from './reservation.service';
     FooterComponent,
     AboutComponent,
     ContactComponent,
-    LocationSelectorComponent,
     MapComponent,
     TableComponent,
     RegisterComponent,
     RestaurantsComponent,
     OrderComponent,
-    
+    SafeUrlPipe,
+   
    
   
   ],
@@ -73,8 +73,9 @@ import { ReservationService } from './reservation.service';
     AngularFirestoreModule,   // Firestore (stockage des commandes, users...)
 
     AngularFireDatabaseModule,
-    GoogleMapsModule,
     ReactiveFormsModule,
+    
+
   ],
   providers: [ReservationService],
   bootstrap: [AppComponent]

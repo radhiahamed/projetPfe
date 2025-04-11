@@ -7,9 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-goToMap() {
-throw new Error('Method not implemented.');
-}
+
   showDropdown = false;
   selectedCity: string = 'Sfax';
   cities: string[] = ['Beb bhar', 'Teniour', 'Gremda', 'EL Ain', 'Lafrane', 'Soukra', 'Kaid Mhamed', 'Bouzayen'];
@@ -34,28 +32,34 @@ throw new Error('Method not implemented.');
   }
 
   selectCity(city: string) {
-    this.selectedCity = city;
-    this.showDropdown = false;
+    localStorage.setItem('selectedCity', city);
+    this.router.navigate(['/map']);
   }
 
   detectLocation() {
     this.selectedCity = 'Autour de moi';
     this.showDropdown = false;
   }
-
+  // 🎯 Ajout de la navigation vers la page Map
+  goToMap() {
+    this.router.navigate(['/map'], { queryParams: { city: this.selectedCity } });
+  }
   // 🔥 Correction de la fonction de recherche
   searchRestaurants() {
-    console.log('Recherche de restaurants pour :', this.searchQuery, 'dans', this.selectedCity);
-
-    // Vérification du restaurant
-    const foundRestaurant = this.restaurants.find(
-      r => r.name.toLowerCase().trim() === this.searchQuery.toLowerCase().trim()
+    if (this.searchQuery.trim() === '') {
+      this.router.navigate(['/restaurant']);
+      return;
+    }
+  
+    const foundRestaurant = this.restaurants.find(r => 
+      r.name.toLowerCase().includes(this.searchQuery.toLowerCase().trim())
     );
-
+  
     if (foundRestaurant) {
+      // Naviguer vers la page du restaurant spécifique
       this.router.navigate(['/restaurant', foundRestaurant.name]);
     } else {
-      alert('Restaurant non trouvé. Essayez un autre nom.');
+      alert('Aucun restaurant trouvé. Essayez un autre nom.');
     }
   }
 }

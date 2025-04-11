@@ -66,13 +66,13 @@ export class ReservationComponent implements OnInit {
 
     this.db.list('reservations').push(reservationData)
     .then(() => {
-      alert('✅ Réservation confirmée !');
+      alert(' Reservation confirmed!');
       this.reservationForm.reset();
       this.loadReservations();
     })
     .catch(error => {
       console.error('Erreur lors de la réservation:', error);
-      alert('❌ Impossible de réserver.');
+      alert('❌ Unable to book.');
     });
 }
 

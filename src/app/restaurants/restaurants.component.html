@@ -1,22 +1,35 @@
 <div class="restaurant-container">
-  <div *ngFor="let restaurant of restaurants.slice(0, displayedRestaurants)" class="restaurant-card">
-    <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
-    <div class="restaurant-info">
-      <h2 class="restaurant-name">{{ restaurant.name }}</h2>
-      <p class="restaurant-description">{{ restaurant.description }}</p>
-      <p class="restaurant-address"><strong>Address:</strong> {{ restaurant.address }}</p>
-      <p class="restaurant-phone"><strong>Phone:</strong> <a [href]="'tel:' + restaurant.phone">{{ restaurant.phone }}</a></p>
-
-      <!-- Ajout de la notation -->
-      <div class="restaurant-details">
-        <span class="restaurant-rating">{{ getStars(restaurant.rating) }}</span>
+  <!-- Afficher soit le restaurant spécifique, soit tous les restaurants -->
+  <ng-container *ngIf="restaurant; else allRestaurants">
+    <div class="restaurant-card">
+      <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
+      <div class="restaurant-info">
+        <h2 class="restaurant-name">{{ restaurant.name }}</h2>
+        <p class="restaurant-description">{{ restaurant.description }}</p>
+        <p class="restaurant-address"><strong>Address:</strong> {{ restaurant.address }}</p>
+        <p class="restaurant-phone"><strong>Phone:</strong> <a [href]="'tel:' + restaurant.phone">{{ restaurant.phone }}</a></p>
+        <div class="restaurant-details">
+          <span class="restaurant-rating">{{ getStars(restaurant.rating) }}</span>
+        </div>
+        <button (click)="goToTables(restaurant.id, restaurant.name)">To Book</button>
       </div>
-
-      <!-- Bouton "Voir les tables" -->
-      <button (click)="goToTables(restaurant.id, restaurant.name)">To Book</button>
-
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #allRestaurants>
+    <div *ngFor="let restaurant of restaurants.slice(0, displayedRestaurants)" class="restaurant-card">
+      <!-- Template existant pour tous les restaurants -->
+      <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
+      <div class="restaurant-info">
+        <h2 class="restaurant-name">{{ restaurant.name }}</h2>
+        <p class="restaurant-description">{{ restaurant.description }}</p>
+        <p class="restaurant-address"><strong>Address:</strong> {{ restaurant.address }}</p>
+        <p class="restaurant-phone"><strong>Phone:</strong> <a [href]="'tel:' + restaurant.phone">{{ restaurant.phone }}</a></p>
+        <div class="restaurant-details">
+          <span class="restaurant-rating">{{ getStars(restaurant.rating) }}</span>
+        </div>
+        <button (click)="goToTables(restaurant.id, restaurant.name)">To Book</button>
+      </div>
+    </div>
+  </ng-template>
 </div>
-
-

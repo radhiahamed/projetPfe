@@ -20,6 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
 { path: '', component: HomeComponent},
 { path: 'restaurant', component: RestaurantsComponent},
+{ path: 'restaurant/:name', component: RestaurantsComponent },
+{ path: 'restaurant/:id', component: RestaurantsComponent },
+
 { path: 'reservation', component: ReservationComponent},
 {path: 'menu', component: MenuComponent},
 {path: 'login', component: LoginComponent},
@@ -39,7 +42,7 @@ const routes: Routes = [
 { path: 'reservation/:restaurantName', component: ReservationComponent }, // Récupérer le nom du restaurant
 { path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },
 { path: '', redirectTo: '/restaurants', pathMatch: 'full' },
-{ path: '**', redirectTo: '/restaurants' },  // ✅ Redirection des erreurs
+{ path: '**', redirectTo: '/restaurants' } , // ✅ Redirection des erreurs
 
 { path: 'reservation/:restaurantName/:tableNumber', component: ReservationComponent },  // Assure-toi que ça inclut tableNumber
 

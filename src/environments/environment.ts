@@ -13,7 +13,9 @@ export const environment = {
     messagingSenderId: "278109562915",
     appId: "1:278109562915:web:e12918c8f5712c49af6996",
     measurementId: "G-RLEPPQ7WYS"
-  }
+  },
+  googleMapsApiKey: 'AIzaSyAm6-DROSPH1S03p-0CUYugImqUp3fKHXY' // Ajoutez cette ligne
+
 };
 
 /*
