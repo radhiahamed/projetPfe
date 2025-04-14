@@ -12,6 +12,7 @@ export class OrderComponent implements OnInit {
   restaurantLocation: string = '';
 
   order: {
+    supplements: any;
     deliveryAddress: string;
     deliveryPhone: string;
     paymentMethod: string;
@@ -29,16 +30,22 @@ export class OrderComponent implements OnInit {
     deliveryFees: 0,
     totalPrice: 0,
     items: [],
+    supplements: [], // <<< AJOUTE CETTE LIGNE
+
   };
 
   isLoading = false;
   cart: any[] = [];
 cancelOrder: any;
-validateOrder: any;
+  supplements: any;
+  selectedSupplements: any;
 
   constructor(private orderService: OrderService, private mapsService: MapsService) {}
 
   ngOnInit(): void {
+    this.supplements = this.orderService.getSelectedSupplements(); // <<< AJOUTE ÇA
+    this.selectedSupplements = this.supplements;
+    
   this.cart = this.orderService.getCart(); // Récupérer le panier
   this.order.totalPrice = this.orderService.getTotal(); // Récupérer le total
   this.restaurantName = this.orderService.getRestaurantName(); // Récupérer le nom du restaurant
@@ -77,7 +84,28 @@ validateOrder: any;
         });
     }
   }
-
+  validateOrder() {
+    if (!this.order.deliveryAddress || !this.order.deliveryPhone) {
+      alert('Veuillez remplir toutes les informations de livraison.');
+      return;
+    }
+  
+    this.isLoading = true;
+  
+    // Ajoute les suppléments dans la commande avant d'envoyer
+    this.order.restaurant = this.restaurantName ?? '';
+    this.order.supplements = this.selectedSupplements; // <<< AJOUT IMPORTANT 🔥
+  
+    this.orderService.saveOrder(this.order).then(() => {
+      this.isLoading = false;
+      alert('Commande enregistrée avec succès!');
+      this.orderService.clearCart();
+    }).catch((error: any) => {
+      this.isLoading = false;
+      console.error('Erreur lors de l\'enregistrement de la commande :', error);
+    });
+  }
+  
   /**
    * Soumet la commande.
    */

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +26,20 @@ export class HomeComponent {
   ];
 
   constructor(private router: Router) {}
+// Dans votre composant
+showOrderDropdown = false;
 
+toggleOrderDropdown() {
+  this.showOrderDropdown = !this.showOrderDropdown;
+}
+
+@HostListener('document:click', ['$event'])
+onDocumentClick(event: MouseEvent) {
+  const target = event.target as HTMLElement;
+  if (!target.closest('.order-link') && !target.closest('.dropdown-content')) {
+    this.showOrderDropdown = false;
+  }
+}
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }

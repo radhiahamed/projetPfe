@@ -14,7 +14,24 @@
   <nav class="nav">
     <a routerLink="/about"><i class="fas fa-info-circle"></i> About</a>
     <a routerLink="/restaurant"><i class="fas fa-utensils"></i> Restaurant</a>
-    <a routerLink="/menu"><i class="fas fa-truck"></i> Delivery</a> 
+    
+    <!-- Menu Order corrigé -->
+    <a class="order-link" (click)="toggleOrderDropdown()">
+      <i class="fas fa-truck"></i> Order <i class="fa fa-chevron-down"></i>
+    </a>
+    
+    
+    <div class="dropdown-content" *ngIf="showOrderDropdown">
+      <ul>
+        <li><a routerLink="/menu">Tous les plats</a></li>
+        <li><a routerLink="/menu/healthy">Plats Healthy</a></li>
+        <li><a routerLink="/menu/traditionnels">Plats Traditionnels</a></li>
+        <li><a routerLink="/menu/desserts">Desserts</a></li>
+        <li><a routerLink="/menu/by-type/burger">Burgers</a></li>
+        <li><a routerLink="/menu/by-type/pizza">Pizzas</a></li>
+      </ul>
+    </div>
+  
     <a routerLink="/reservation"><i class="fas fa-calendar-alt"></i> Reservation</a>
     <a routerLink="/contact"><i class="fas fa-envelope"></i> Contact</a>
     <button routerLink="/login"><i class="fas fa-user"></i> Login</button>

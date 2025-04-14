@@ -21,4 +21,5 @@ export class RestaurantService {
   getRestaurants() {
     return this.restaurants;
   }
+  
 }

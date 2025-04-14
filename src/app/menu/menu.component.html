@@ -3,7 +3,7 @@
   <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">🍽️ Menu of dishes</h1>
 
   <!-- 🍔 Section par restaurant -->
-  <div *ngFor="let restaurant of restaurants" class="mb-10">
+  <div *ngFor="let restaurant of filteredRestaurants" class="mb-10">
     <!-- Nom du restaurant -->
     <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ restaurant.name }}</h2>
 
@@ -14,10 +14,20 @@
           <img [src]="plat.image" class="w-full h-48 object-cover rounded-lg" alt="{{ plat.name }}">
           <h2 class="text-lg font-semibold text-center mt-3">{{ plat.name }}</h2>
           <p class="text-center text-gray-600 mt-1 font-medium">{{ plat.price }} TND</p>
+          
+          <!-- Bouton Add to cart -->
           <button (click)="addToOrder(plat, restaurant.name)" 
-            class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition">
+                  class="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition">
             🛒 Add to cart
           </button>
+          
+          <!-- 🔵 Supplements Section -->
+          <div *ngIf="plat.supplements" class="mt-2">
+            <button (click)="openSupplements(plat)" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-600 transition">
+                    Choose your option
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -54,5 +64,69 @@
       <li>🚚 Shipping costs : <b>Free</b> for online payments, <b>5 TND</b> in cash</li>
     </ul>
   </div>
+
+  <!-- 🔵 Modal Supplements améliorée -->
+  <div *ngIf="selectedPlat" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <!-- En-tête -->
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Personnaliser {{ selectedPlat.name }}</h2>
+        <button (click)="closeSupplements()" class="text-gray-500 hover:text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Liste des catégories de suppléments -->
+      <div *ngIf="selectedPlat.supplements" class="space-y-4">
+        <div *ngFor="let category of selectedPlat.supplements" class="border rounded-lg overflow-hidden">
+          <!-- En-tête de catégorie -->
+          <button 
+            (click)="toggleCategory(category.name)"
+            class="w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition">
+            <span class="font-medium">{{ category.name }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform" 
+                 [class.rotate-180]="activeCategory === category.name" 
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Options de la catégorie -->
+          <div *ngIf="activeCategory === category.name" class="p-4 space-y-3">
+            <div *ngFor="let option of category.options" class="flex items-center justify-between">
+              <label class="flex items-center space-x-3 flex-grow">
+                <input type="checkbox" 
+                       [checked]="option.selected"
+                       (change)="toggleSupplementOption(option)"
+                       class="rounded text-blue-500 focus:ring-blue-400">
+                <span>{{ option.name }}</span>
+              </label>
+              <span *ngIf="option.price" class="text-sm text-gray-600">+{{ option.price }} TND</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résumé des sélections -->
+      <div *ngIf="getSelectedSupplements().length > 0" class="mt-6 border-t pt-4">
+        <h3 class="font-medium mb-2">Choose your option :</h3>
+        <ul class="space-y-1">
+          <li *ngFor="let item of getSelectedSupplements()" class="flex justify-between">
+            <span>{{ item.name }}</span>
+            <span *ngIf="item.price">+{{ item.price }} TND</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Bouton de confirmation -->
+      <button (click)="closeSupplements()" 
+              class="mt-6 w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition font-medium">
+        Confirmer les choix
+      </button>
+    </div>
+  </div>
 </div>
+
 <app-footer></app-footer>

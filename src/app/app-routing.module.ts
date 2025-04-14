@@ -22,7 +22,9 @@ const routes: Routes = [
 { path: 'restaurant', component: RestaurantsComponent},
 { path: 'restaurant/:name', component: RestaurantsComponent },
 { path: 'restaurant/:id', component: RestaurantsComponent },
-
+{ path: 'menu', component: MenuComponent },
+  { path: 'menu/:category', component: MenuComponent },
+  { path: 'menu/by-type/:type', component: MenuComponent },
 { path: 'reservation', component: ReservationComponent},
 {path: 'menu', component: MenuComponent},
 {path: 'login', component: LoginComponent},

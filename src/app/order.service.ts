@@ -9,9 +9,18 @@ export class OrderService {
   private totalPrice: number = 0;
   private restaurantName: string | null = null;
   private restaurantLocation: string | null = null;
+  addOrder: any;
+  private selectedSupplements: any[] = []; 
+ 
 
   constructor(private db: AngularFireDatabase) {}
-
+  getSelectedSupplements() {
+    return this.selectedSupplements;
+  }
+  
+  setSelectedSupplements(supplements: any[]) {
+    this.selectedSupplements = supplements;
+  }
   setRestaurantLocation(location: string) {
     this.restaurantLocation = location;
   }
@@ -60,7 +69,14 @@ export class OrderService {
   calculateTotal() {
     this.totalPrice = this.cart.reduce((sum, item) => sum + item.price, 0);
   }
-
+  saveOrder(order: any): Promise<any> {
+    // logique pour sauvegarder la commande, par exemple via HTTP
+    return new Promise((resolve, reject) => {
+      console.log('Order saved:', order);
+      resolve(order);
+    });
+  }
+  
   // ✅ Correction : Sauvegarde avec nom du plat comme clé au lieu d'un index
   placeOrder(order: any): Promise<void> {
     if (!this.restaurantName || this.cart.length === 0) {

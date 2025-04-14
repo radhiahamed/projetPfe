@@ -13,20 +13,20 @@ export class MapComponent implements OnInit {
 
   // Liste des restaurants
   restaurants = [
-    { id: 1, name: 'La Mascotte', address: 'Rte du Kaïd Mhamed, Sfax', rating: 4.5, cuisine: 'Française', lat: 34.76892177256687, lng:  10.742750297633478, promo: '10% discount' },
-    { id: 2, name: 'TONTON', address: 'City Centre Building, Rue Majida Boulila', rating: 4.2, cuisine: 'Tunisienne', lat: 34.74282366215929,  lng: 10.75397567487988, promo: 'Free dessert' },
-    { id: 3, name: 'El Kolla', address: 'km3 Rte Soukra, Sfax 3000', rating: 4.7, cuisine: 'Italienne', lat: 34.7270649914782, lng: 10.725673751576402, promo: 'Special offer: Free dish' },
-    { id: 4, name: 'La Raclette', address: 'Gremda km 4.5, Sfax', rating: 4.0, cuisine: 'Française', lat: 34.77106607762929, lng: 10.742688551609831 },
-    { id: 5, name: 'Trocadero Sfax', address: 'Route Lafrane km 4, Sfax', rating: 4.8, cuisine: 'Tunisienne', lat: 35.12631365474704,  lng: 10.843097928965472},
-    { id: 6, name: 'Pomme de Mer', address: 'Route Kaid Mohamad km2, Sfax 3002', rating: 4.6, cuisine: 'Fruits de mer', lat: 34.75577373201232, lng:  10.753280513523151 },
-    { id: 7, name: 'La Voile Blanche', address: 'Route Teniour, Sfax', rating: 4.3, cuisine: 'Française', lat: 34.75343318510028, lng: 10.757494859546338 },
-    { id: 8, name: 'Le Raffiné', address: 'Rte Gremda, Sfax 3000', rating: 4.9, cuisine: 'Italienne', lat: 34.7680156880049 , lng: 10.738904005582913 },
+    { id: 1, name: 'La Mascotte', address: 'Rte du Kaïd Mhamed, Sfax', rating: 4.5, cuisine: 'French', lat: 34.76892177256687, lng:  10.742750297633478, promo: '10% discount' },
+    { id: 2, name: 'TONTON', address: 'City Centre Building, Rue Majida Boulila', rating: 4.2, cuisine: 'Tunisian', lat: 34.74282366215929,  lng: 10.75397567487988, promo: 'Free dessert' },
+    { id: 3, name: 'El Kolla', address: 'km3 Rte Soukra, Sfax 3000', rating: 4.7, cuisine: 'Italian', lat: 34.7270649914782, lng: 10.725673751576402, promo: 'Special offer: Free dish' },
+    { id: 4, name: 'La Raclette', address: 'Gremda km 4.5, Sfax', rating: 4.0, cuisine: 'French', lat: 34.77106607762929, lng: 10.742688551609831 },
+    { id: 5, name: 'Trocadero Sfax', address: 'Route Lafrane km 4, Sfax', rating: 4.8, cuisine: 'Tunisian', lat: 35.12631365474704,  lng: 10.843097928965472},
+    { id: 6, name: 'Pomme de Mer', address: 'Route Kaid Mohamad km2, Sfax 3002', rating: 4.6, cuisine: 'Seafood', lat: 34.75577373201232, lng:  10.753280513523151 },
+    { id: 7, name: 'La Voile Blanche', address: 'Route Teniour, Sfax', rating: 4.3, cuisine: 'French', lat: 34.75343318510028, lng: 10.757494859546338 },
+    { id: 8, name: 'Le Raffiné', address: 'Rte Gremda, Sfax 3000', rating: 4.9, cuisine: 'Italian', lat: 34.7680156880049 , lng: 10.738904005582913 },
   ];
 
   // Filtres
   selectedCuisine: string = '';
   minRating: number = 0;
-  cuisineTypes = ['Tunisienne', 'Française', 'Italienne', 'Fruits de mer'];
+  cuisineTypes = ['Tunisian', 'French', 'Italian', 'Seafood'];
   filteredRestaurants = this.restaurants;
 
   // Clé API Google Maps
