@@ -166,7 +166,7 @@ export class MenuComponent implements OnInit {
             {
               name: "Crudités",
               options: [
-                { name: 'Salade', selected: true },
+                { name: 'Salade', selected: false },
                 { name: 'Tomate', selected: false },
                 { name: 'Oignons', selected: true }
               ]
@@ -204,8 +204,8 @@ export class MenuComponent implements OnInit {
             {
               name: "Crudités",
               options: [
-                { name: 'Salade', selected: true },
-                { name: 'Tomate', selected: true },
+                { name: 'Salade', selected: false },
+                { name: 'Tomate', selected: false },
                 { name: 'Oignons', selected: false }
               ]
             },
@@ -232,8 +232,8 @@ export class MenuComponent implements OnInit {
             {
               name: "Crudités",
               options: [
-                { name: 'Salade', selected: true },
-                { name: 'Tomate', selected: true },
+                { name: 'Salade', selected: false },
+                { name: 'Tomate', selected: false },
                 { name: 'Mayonnaise', selected: false },
                 { name: 'Oignons', selected: false }
               ]
@@ -250,9 +250,9 @@ export class MenuComponent implements OnInit {
             {
               name: "Options",
               options: [
-                { name: 'Salade', selected: true },
-                { name: 'Tomate', selected: true },
-                { name: 'Mayonnaise', selected: true },
+                { name: 'Salade', selected: false },
+                { name: 'Tomate', selected: false },
+                { name: 'Mayonnaise', selected: false },
                 { name: 'Oignons', selected: false }
               ]
             }
@@ -274,8 +274,8 @@ export class MenuComponent implements OnInit {
               name: "Options",
               options: [
                 { name: 'Salade', selected: false },
-                { name: 'Tomate', selected: true },
-                { name: 'Mayonnaise', selected: true },
+                { name: 'Tomate', selected: false },
+                { name: 'Mayonnaise', selected: false },
                 { name: 'Oignons', selected: false }
               ]
             }
@@ -290,10 +290,10 @@ export class MenuComponent implements OnInit {
             {
               name: "Options",
               options: [
-                { name: 'Salade', selected: true },
+                { name: 'Salade', selected: false },
                 { name: 'Tomate', selected: false },
-                { name: 'Mayonnaise', selected: true },
-                { name: 'Oignons', selected: true }
+                { name: 'Mayonnaise', selected: false },
+                { name: 'Oignons', selected: false }
               ]
             }
           ]

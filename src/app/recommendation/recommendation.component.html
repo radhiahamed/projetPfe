@@ -1,0 +1,7 @@
+<!-- recommendation.component.html -->
+<div *ngFor="let resto of restaurants">
+    <h3>{{ resto.name }}</h3>
+    <p>{{ resto.location }} - {{ resto.cuisines }}</p>
+    <p>Rating: {{ resto.aggregate_rating }}</p>
+  </div>
+  

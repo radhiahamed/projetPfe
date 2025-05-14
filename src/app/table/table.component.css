@@ -1,58 +1,113 @@
 .tables-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 30px;
-  font-family: 'Poppins', sans-serif;
+  padding: 40px;
+  background: url('/assets/table.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  backdrop-filter: blur(4px);
+}
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #e51313;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .table-card {
-  width: 90%;
-  max-width: 650px;
+  background: rgba(35, 33, 33, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 300px;
+  margin: auto;
 }
 
 .table-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
-.reserved {
-  background-color: #ffe5e5;
-  border: 2px solid #d9534f;
-  color: #d9534f;
+.table-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.table-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.table-status {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px;
 }
 
 .available {
-  background-color: #e8fce8;
-  border: 2px solid #28a745;
-  color: #28a745;
+  background-color: #c8d8e7;
+  color: #155724;
+}
+
+.reserved {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.table-description {
+  font-size: 0.95rem;
+  color: #555;
 }
 
 .reserve-btn {
-  background-color: #28a745;
-  color: white;
+  padding: 10px 20px;
   border: none;
-  padding: 12px 18px;
-  font-size: 16px;
+  background: #28a745;
+  color: white;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease;
 }
 
 .reserve-btn:hover {
-  background-color: #218838;
-  transform: scale(1.05);
+  background: #218838;
 }
 
-.reserved-message {
-  font-size: 16px;
+.reserve-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+.badge {
   font-weight: bold;
-  color: #d9534f;
+  padding: 4px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  font-size: 14px;
+  background-color: transparent;
+  color: black; /* ← ça change la couleur du texte */
+}
+
+.badge-reserved {
+  background-color: #ffe5e5; /* fond rouge clair */
+  border: 1px solid #ff4d4d;
+}
+
+.badge-available {
+  background-color: #e1f7e1; /* fond vert clair */
+  border: 1px solid #4caf50;
 }

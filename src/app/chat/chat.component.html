@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<div class="chat-wrapper" [class.visible]="isChatVisible">
+    <div class="chat-toggle" (click)="toggleChat()">
+      <i class="fas fa-comment"></i>
+    </div>
+    
+    <div class="chat-container" *ngIf="isChatVisible">
+    <div class="chat-header">
+      <h3>Virtual Assistant</h3>
+    </div>
+    
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.role">
+        <div class="message-content">
+          {{ msg.content }}
+        </div>
+      </div>
+    </div>
+  
+    <div class="chat-input">
+      <input [(ngModel)]="userInput" 
+             (keyup.enter)="sendMessage()" 
+             placeholder="Écrivez votre message ici...">
+      <button (click)="sendMessage()">
+        <i class="fas fa-paper-plane"></i> Send
+      </button>
+    </div>
+  </div>

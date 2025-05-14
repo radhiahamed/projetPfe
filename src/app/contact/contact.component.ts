@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ContactService } from '../contact.service';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Component({
   selector: 'app-contact',
@@ -10,8 +11,14 @@ import { ContactService } from '../contact.service';
 export class ContactComponent {
 reviews: any;
 
-  constructor(private contactService: ContactService) {}
-
+  constructor(private contactService: ContactService, private db: AngularFireDatabase) {}
+  sendComment() {
+    this.db.list('/messages').push({
+      restaurant: 'La Mascotte',
+      comment: 'Excellent service !',
+      date: new Date().toISOString()
+    });
+  }
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.contactService.sendMessage(form.value);

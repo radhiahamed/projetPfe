@@ -73,19 +73,26 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.myForm.invalid) return;
 
-    const { email, password } = this.myForm.value;
-    this.authService.createUser(email, password).then(
-      () => {
-        this.successMsg = "Account successfully registered!";
+  const { email, password } = this.myForm.value;
+  this.authService.createUser(email, password).then(
+    (userCredential: any) => {
+      // ✅ Envoyer l'email de vérification
+      userCredential.user.sendEmailVerification().then(() => {
+        this.successMsg = "Inscription réussie ! Vérifie ta boîte mail pour activer ton compte.";
         this.errorMsg = "";
+        // Redirection après un petit délai
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 2000); // Redirection après 2s
-      },
-      (error) => {
-        this.errorMsg = error.message;
+        }, 3000);
+      }).catch((error: any) => {
+        this.errorMsg = "Inscription réussie, mais échec de l'envoi de l'email : " + error.message;
         this.successMsg = "";
-      }
-    );
-  }
+      });
+    },
+    (error) => {
+      this.errorMsg = error.message;
+      this.successMsg = "";
+    }
+  );
+}
 }

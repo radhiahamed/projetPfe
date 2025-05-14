@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,17 @@ export class RestaurantService {
     { id: 8, name: 'Le Raffiné', city: 'Tunis', image: 'assets/leraffine.jpg', description: 'French and Italian cuisine.', address: 'Rte Gremda, Sfax 3000', phone: '20 302 414', rating: 4 },
   ];
 
-  constructor() { }
+  constructor(private db: AngularFireDatabase) {}
+
+  debugConnection() {
+    console.log("Tentative de lecture depuis Firebase...");
+    this.db.list('restaurants_v2', ref => ref.limitToFirst(1))
+      .valueChanges()
+      .subscribe({
+        next: data => console.log("Reçu:", data),
+        error: err => console.error("Erreur:", err)
+      });
+  }
 
   getRestaurants() {
     return this.restaurants;

@@ -1,13 +1,22 @@
+
 <div class="tables-container">
   <h2 class="title">Available Tables</h2>
 
-  <div *ngFor="let table of tables" class="table-card" [ngClass]="{'reserved': table.reserved, 'available': !table.reserved}">
-    <h3>Table {{ table.number }}</h3>
-    <p>{{ table.description }}</p>
-
-    <button [disabled]="table.reserved" (click)="goToReservation(table.number)">
-      {{ table.reserved ? 'Reserved' : 'Reserve' }}
-    </button>
+  <div class="grid">
+    <div *ngFor="let table of tables" class="table-card" [ngClass]="{'reserved': table.reserved, 'available': !table.reserved}">
+      <div class="card-header">
+        <h3>Table {{ table.number }}</h3>
+        <span class="badge" [ngClass]="{'badge-reserved': table.reserved, 'badge-available': !table.reserved}">
+          {{ table.reserved ? '🔴 Reserved' : '💚 Available' }}
+        </span>
+      </div>
+      <div class="icon">
+        <img [src]="table.icon" alt="icon" />
+      </div>
+      <p>{{ table.description }}</p>
+      <button class="reserve-btn" [disabled]="table.reserved" (click)="goToReservation(table.number)">
+        {{ table.reserved ? 'Reserved' : 'Reserve' }}
+      </button>
+    </div>
+  </div>
 </div>
-
-

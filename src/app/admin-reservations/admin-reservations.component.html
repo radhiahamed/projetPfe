@@ -1,0 +1,18 @@
+<div class="container">
+  <h2><i class="fas fa-calendar-alt"></i> Gestion des Réservations</h2>
+
+  <div class="action-bar">
+    <input type="text" placeholder="Rechercher par restaurant..." class="search-input">
+  </div>
+
+  <div class="reservation-list">
+    <div class="reservation-card">
+      <h3>Restaurant: La Mascotte</h3>
+      <p><strong>Date:</strong> 2025-05-14</p>
+      <p><strong>Table:</strong> 2</p>
+      <p><strong>Status:</strong> Pending</p>
+      <button class="btn-confirm" (click)="confirmReservation()">Confirmer</button>
+      <button class="btn-cancel" (click)="cancelReservation()">Annuler</button>
+    </div>
+  </div>
+</div>
