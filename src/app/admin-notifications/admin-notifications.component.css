@@ -1,0 +1,14 @@
+.notif-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notif-list li {
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.date {
+  font-weight: bold;
+  color: #555;
+}

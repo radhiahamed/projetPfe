@@ -49,6 +49,11 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminRestaurantsComponent } from './admin-restaurants/admin-restaurants.component';
 import { AdminTablesComponent } from './admin-tables/admin-tables.component';
 import { AdminReservationsComponent } from './admin-reservations/admin-reservations.component';
+import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
+import { AdminPlatsComponent } from './admin-plats/admin-plats.component';
+import { AdminCommandesComponent } from './admin-commandes/admin-commandes.component';
+import { AdminNotificationsComponent } from './admin-notifications/admin-notifications.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +77,12 @@ import { AdminReservationsComponent } from './admin-reservations/admin-reservati
     AdminDashboardComponent,
     AdminRestaurantsComponent,
     AdminTablesComponent,
-    AdminReservationsComponent
+    AdminReservationsComponent,
+    AdminCategoriesComponent,
+    AdminPlatsComponent,
+    AdminCommandesComponent,
+    AdminNotificationsComponent,
+    DashboardComponent
   ],
   imports: [
     // Core Modules

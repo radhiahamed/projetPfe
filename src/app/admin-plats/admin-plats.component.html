@@ -1,0 +1,27 @@
+<div class="admin-section">
+  <h2>Gestion des Plats</h2>
+  <button class="btn-add">+ Ajouter Plat</button>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Catégorie</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plat of plats">
+        <td>{{plat.id}}</td>
+        <td>{{plat.nom}}</td>
+        <td>{{plat.categorie}}</td>
+        <td>{{plat.prix}} TND</td>
+        <td>
+          <button class="btn-edit">Modifier</button>
+          <button class="btn-delete">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

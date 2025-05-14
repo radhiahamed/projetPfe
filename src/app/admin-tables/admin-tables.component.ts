@@ -5,28 +5,28 @@ import { Component } from '@angular/core';
   templateUrl: './admin-tables.component.html'
 })
 export class AdminTablesComponent {
-  restaurants = [{ name: 'La Mascotte' }, { name: 'Pizza House' }];
-  selectedRestaurant = 'La Mascotte';
+  tables: { id: number; number: number; description: string }[] = [];
 
-  tables = [
-    { id: 1, restaurant: 'La Mascotte', description: 'Fenêtre' },
-    { id: 2, restaurant: 'Pizza House', description: 'Famille' }
-  ];
+  table = { id: 0, number: 0, description: '' };
+  isEditing = false;
 
-  newTable = { description: '' };
-
-  addTable() {
-    const id = Date.now();
-    this.tables.push({
-      id,
-      restaurant: this.selectedRestaurant,
-      description: this.newTable.description
-    });
-    this.newTable = { description: '' };
+  onSubmit() {
+    if (this.isEditing) {
+      const index = this.tables.findIndex(t => t.id === this.table.id);
+      if (index !== -1) {
+        this.tables[index] = { ...this.table };
+      }
+      this.isEditing = false;
+    } else {
+      this.table.id = Date.now(); // ID unique
+      this.tables.push({ ...this.table });
+    }
+    this.table = { id: 0, number: 0, description: '' };
   }
 
-  getTablesForSelectedRestaurant() {
-    return this.tables.filter(t => t.restaurant === this.selectedRestaurant);
+  editTable(t: any) {
+    this.table = { ...t };
+    this.isEditing = true;
   }
 
   deleteTable(id: number) {

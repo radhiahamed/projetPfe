@@ -1,19 +1,28 @@
-<div class="container">
-  <h2><i class="fas fa-chair"></i> Tables du Restaurant</h2>
+<div class="table-container">
+  <h2>Gestion des Tables</h2>
 
-  <select [(ngModel)]="selectedRestaurant">
-    <option *ngFor="let resto of restaurants" [value]="resto.name">{{ resto.name }}</option>
-  </select>
+  <form (ngSubmit)="onSubmit()" class="table-form">
+    <div class="form-group">
+      <label for="number">Numéro de Table</label>
+      <input type="number" id="number" name="number" [(ngModel)]="table.number" required />
+    </div>
 
-  <form (ngSubmit)="addTable()" class="table-form">
-    <input [(ngModel)]="newTable.description" name="description" placeholder="Description (Fenêtre, VIP...)" required>
-    <button type="submit" class="btn-add">Ajouter Table</button>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" id="description" name="description" [(ngModel)]="table.description" required />
+    </div>
+
+    <button type="submit" class="btn">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
   </form>
 
+  <h3>Liste des Tables</h3>
   <ul class="table-list">
-    <li *ngFor="let table of getTablesForSelectedRestaurant()">
-      <span>Table {{ table.id }} - {{ table.description }}</span>
-      <button class="btn-delete" (click)="deleteTable(table.id)">🗑️</button>
+    <li *ngFor="let t of tables" class="table-item">
+      <span>Table {{ t.number }} - {{ t.description }}</span>
+      <div>
+        <button class="btn edit-btn" (click)="editTable(t)">Modifier</button>
+        <button class="btn delete-btn" (click)="deleteTable(t.id)">Supprimer</button>
+      </div>
     </li>
   </ul>
 </div>

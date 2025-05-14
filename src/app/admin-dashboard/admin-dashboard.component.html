@@ -1,25 +1,17 @@
-<div class="admin-container">
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h2><i class="fas fa-user-shield"></i> Admin</h2>
-    </div>
-    <ul class="sidebar-menu">
-      <li [class.active]="activeTab === 'dashboard'" (click)="navigateTo('dashboard')">
-        <i class="fas fa-tachometer-alt"></i> Dashboard
-      </li>
-      <li [class.active]="activeTab === 'restaurants'" (click)="navigateTo('restaurants')">
-        <i class="fas fa-store"></i> Restaurants
-      </li>
-      <li [class.active]="activeTab === 'tables'" (click)="navigateTo('tables')">
-        <i class="fas fa-chair"></i> Tables
-      </li>
-      <li [class.active]="activeTab === 'reservations'" (click)="navigateTo('reservations')">
-        <i class="fas fa-calendar-check"></i> Réservations
-      </li>
+<div class="admin-layout">
+  <nav class="sidebar">
+    <ul>
+      <li><a routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="restaurants" routerLinkActive="active">Restaurants</a></li>
+      <li><a routerLink="tables" routerLinkActive="active">Tables</a></li>
+      <li><a routerLink="reservations" routerLinkActive="active">Réservations</a></li>
+      <li><a routerLink="categories" routerLinkActive="active">Catégories</a></li>
+      <li><a routerLink="plats" routerLinkActive="active">Plats</a></li>
+      <li><a routerLink="commandes" routerLinkActive="active">Commandes</a></li>
+      <li><a routerLink="notifications" routerLinkActive="active">Notifications</a></li>
     </ul>
-  </div>
-
-  <div class="main-content">
+  </nav>
+  <main class="main-content">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>
