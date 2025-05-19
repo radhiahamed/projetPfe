@@ -1,21 +1,29 @@
+// recommendation.component.ts
 import { Component, OnInit } from '@angular/core';
-import { JsonDataService } from '../json-data-service';
+import { Observable } from 'rxjs';
+import { RecommendationService } from '../recommendation.service';
+
+interface Restaurant {
+  nom: string;
+  score_ia: number;
+  // Ajoute d'autres propriétés si nécessaire
+}
 
 @Component({
   selector: 'app-recommendation',
   templateUrl: './recommendation.component.html',
-  styleUrls: ['./recommendation.component.css']  // Assure-toi d'ajouter le fichier de style si nécessaire
+  styleUrls: ['./recommendation.component.css']
 })
 export class RecommendationComponent implements OnInit {
-  restaurants: any[] = [];
+  recommendations$!: Observable<Restaurant[]>;
 
-  constructor(private jsonDataService: JsonDataService) {}
+  constructor(private recommendationService: RecommendationService) {}
 
   ngOnInit(): void {
-    this.jsonDataService.getCleanedRestaurants().subscribe((data: any[]) => {
-      this.restaurants = data;
-      this.restaurants = this.jsonDataService.sortRestaurantsByRating(this.restaurants); // Tri par note
-      console.log('Restaurants triés par note :', this.restaurants);
-    });
+    this.loadRecommendations();
+  }
+
+  loadRecommendations() {
+    this.recommendations$ = this.recommendationService.getRecommendations();
   }
 }

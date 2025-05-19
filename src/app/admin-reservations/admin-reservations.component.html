@@ -1,18 +1,42 @@
-<div class="container">
-  <h2><i class="fas fa-calendar-alt"></i> Gestion des Réservations</h2>
-
-  <div class="action-bar">
-    <input type="text" placeholder="Rechercher par restaurant..." class="search-input">
-  </div>
-
-  <div class="reservation-list">
-    <div class="reservation-card">
-      <h3>Restaurant: La Mascotte</h3>
-      <p><strong>Date:</strong> 2025-05-14</p>
-      <p><strong>Table:</strong> 2</p>
-      <p><strong>Status:</strong> Pending</p>
-      <button class="btn-confirm" (click)="confirmReservation()">Confirmer</button>
-      <button class="btn-cancel" (click)="cancelReservation()">Annuler</button>
-    </div>
-  </div>
+<div class="admin-section">
+  <h2>📅 Reservation Management</h2>
+  <button class="btn-add" (click)="onAddReservation()">+ Add Reservation</button>
+  
+  <table class="table-reservations">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Client</th>
+        <th>Restaurant</th>
+        <th>Table</th>
+        <th>Date & Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let res of reservations">
+        <td>{{ res.id }}</td>
+        <td>{{ res.client }}</td>
+        <td>{{ res.restaurant }}</td>
+        <td>{{ res.table }}</td>
+        <td>{{ res.datetime | date:'dd/MM/yyyy HH:mm' }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="{
+            'pending': res.statut === 'En attente',
+            'confirmed': res.statut === 'Confirmée',
+            'cancelled': res.statut === 'Annulée'
+          }">{{ res.statut }}</span>
+        </td>
+        <td class="actions">
+          <button class="btn-edit" (click)="onEditReservation(res)" title="To modify">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn-delete" (click)="onDeleteReservation(res)" title="Delete">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

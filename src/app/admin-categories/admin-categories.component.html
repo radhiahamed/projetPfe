@@ -1,23 +1,29 @@
-<div class="admin-section">
-  <h2>Gestion des Catégories</h2>
-  <button class="btn-add">+ Ajouter Catégorie</button>
-  <table>
+<section class="categories">
+  <div class="categories__header">
+    <h2 class="categories__title">Category Management</h2>
+    <button class="btn btn--add" (click)="onAddCategory()">+ Add Categorie</button>
+  </div>
+
+  <table class="categories__table">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Nom</th>
+        <th>Name</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cat of categories">
-        <td>{{cat.id}}</td>
-        <td>{{cat.nom}}</td>
-        <td>
-          <button class="btn-edit">Modifier</button>
-          <button class="btn-delete">Supprimer</button>
+      <tr *ngFor="let cat of categories" class="categories__row">
+        <td>{{ cat.id }}</td>
+        <td>{{ cat.nom }}</td>
+        <td class="categories__actions">
+          <button class="btn btn--edit" (click)="onEditCategory(cat)">To modify</button>
+          <button class="btn btn--delete" (click)="onDeleteCategory(cat)">Delete</button>
         </td>
+      </tr>
+      <tr *ngIf="categories.length === 0">
+        <td colspan="3" class="categories__empty">No categories available.</td>
       </tr>
     </tbody>
   </table>
-</div>
+</section>

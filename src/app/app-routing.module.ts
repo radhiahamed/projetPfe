@@ -25,6 +25,7 @@ import { AdminPlatsComponent } from './admin-plats/admin-plats.component';
 import { AdminCommandesComponent } from './admin-commandes/admin-commandes.component';
 import { AdminNotificationsComponent } from './admin-notifications/admin-notifications.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RecommendationPerformanceComponent } from './recommendation-performance/recommendation-performance.component';
 
 
 
@@ -50,7 +51,7 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'recommendation', component: RecommendationComponent },
   { path: 'chat', component: ChatComponent },
-
+{ path: 'recommendation-performance', component: RecommendationPerformanceComponent },
   // Admin 
    {
   path: 'admin',

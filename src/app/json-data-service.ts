@@ -9,23 +9,23 @@ import { Observable } from 'rxjs';
 export class JsonDataService {
   constructor(private http: HttpClient, private db: AngularFireDatabase) {}
 
-  // 🔹 Lire les restaurants nettoyés à partir du fichier local JSON
+  // 🔹 Récupérer les restaurants nettoyés à partir d'un fichier JSON local
   getCleanedRestaurants(): Observable<any[]> {
     return this.http.get<any[]>('assets/data/cleaned_data.json');
   }
 
-  // 🔹 Trier les restaurants par leur note
+  // 🔹 Trier les restaurants par note décroissante
   sortRestaurantsByRating(restaurants: any[]): any[] {
     return restaurants.sort((a, b) => b.aggregate_rating - a.aggregate_rating);
   }
 
-  // 🔹 Envoyer une requête de recherche à Firebase
+  // 🔹 Envoyer une requête de recherche dans Firebase (exemple : historique de recherche)
   envoyerRecherche(userId: string, recherche: string) {
     const timestamp = new Date().toISOString();
     return this.db.list('requetes_utilisateur').push({ userId, recherche, timestamp });
   }
 
-  // 🔹 Lire les recommandations générées par l'IA depuis Firebase
+  // 🔹 Lire les recommandations IA pour un utilisateur donné dans Firebase
   lireRecommandations(userId: string): Observable<any[]> {
     return this.db.list(`resultats_recommandation/${userId}`).valueChanges();
   }

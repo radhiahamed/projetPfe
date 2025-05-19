@@ -1,8 +1,9 @@
 <div class="admin-section">
-  <h2>Notifications</h2>
-  <ul class="notif-list">
-    <li *ngFor="let notif of notifications">
-      <span class="date">{{notif.date}}</span> - {{notif.message}}
+  <h2>📢 Notifications</h2>
+  <ul class="notification-list">
+    <li *ngFor="let notif of notifications" [ngClass]="notif.type">
+      <strong>{{ notif.message }}</strong>
+      <span class="notif-date">{{ notif.date | date:'short' }}</span>
     </li>
   </ul>
 </div>

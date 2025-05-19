@@ -6,11 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-notifications.component.css']
 })
 export class AdminNotificationsComponent implements OnInit {
-notifications: any;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+ ngOnInit(): void {
+   throw new Error('Method not implemented.');
+ }
+ notifications = [
+    { message: 'Nouvelle réservation reçue.', date: new Date(), type: 'success' },
+    { message: 'Table annulée par un client.', date: new Date(), type: 'warning' },
+    { message: 'Erreur de paiement détectée.', date: new Date(), type: 'error' }
+  ];
 }

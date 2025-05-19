@@ -1,50 +1,46 @@
 import { Component } from '@angular/core';
 
+interface Restaurant {
+  id: number;
+  nom: string;
+  location: string;
+  typeCuisine: string;
+}
+
 @Component({
   selector: 'app-admin-restaurants',
-  templateUrl: './admin-restaurants.component.html'
+  templateUrl: './admin-restaurants.component.html',
+  styleUrls: ['./admin-restaurants.component.css']  // ✅ ligne correcte
 })
 export class AdminRestaurantsComponent {
-   restaurant = {
-    name: '',
-    cuisine: '',
-    price: null
-  };
-
-  // Liste des restaurants avec les propriétés 'name', 'cuisine', 'price'
-  restaurants = [
-    { id: 1, name: 'Restaurant 1', cuisine: 'Cuisine 1', price: 20 },
-    { id: 2, name: 'Restaurant 2', cuisine: 'Cuisine 2', price: 25 }
+   restaurants: Restaurant[] = [
+    { id: 1, nom: 'La Mascotte', location: 'Sfax', typeCuisine: 'Tunisian' },
+    { id: 2, nom: 'Trocadero', location: 'Sfax', typeCuisine: 'Italian' },
+    { id: 3, nom: 'TONTON', location: 'Sfax', typeCuisine: 'Italian' }
   ];
 
-  isEditing = false;
+  private nextId = this.restaurants.length + 1;
 
-  // Soumission du formulaire
-  onSubmit() {
-    if (this.isEditing) {
-      // Logique de modification
-      console.log('Modifier Restaurant', this.restaurant);
-    } else {
-      // Logique d'ajout
-      console.log('Ajouter Restaurant', this.restaurant);
+  onAddRestaurant() {
+    const newRestaurant: Restaurant = {
+      id: this.nextId++,
+      nom: 'New Restaurant',
+      location: 'City',
+      typeCuisine: 'Type'
+    };
+    this.restaurants.push(newRestaurant);
+  }
+
+  onEditRestaurant(restaurant: Restaurant) {
+    const newName = prompt('Change the name of the restaurant:', restaurant.nom);
+    if (newName && newName.trim() !== '') {
+      restaurant.nom = newName.trim();
     }
-    this.resetForm();
   }
 
-  // Modifier un restaurant
-  editRestaurant(restaurant: any) {
-    this.isEditing = true;
-    this.restaurant = { ...restaurant }; // Remplir le formulaire avec les données du restaurant
-  }
-
-  // Supprimer un restaurant
-  deleteRestaurant(id: number) {
-    this.restaurants = this.restaurants.filter(r => r.id !== id);
-  }
-
-  // Réinitialiser le formulaire
-  resetForm() {
-    this.restaurant = { name: '', cuisine: '', price: null };
-    this.isEditing = false;
+  onDeleteRestaurant(restaurant: Restaurant) {
+    if (confirm(`Please visit the restaurant above "${restaurant.nom}" ?`)) {
+      this.restaurants = this.restaurants.filter(r => r.id !== restaurant.id);
+    }
   }
 }

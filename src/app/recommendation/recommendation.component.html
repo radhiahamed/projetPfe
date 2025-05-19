@@ -1,7 +1,12 @@
 <!-- recommendation.component.html -->
-<div *ngFor="let resto of restaurants">
-    <h3>{{ resto.name }}</h3>
-    <p>{{ resto.location }} - {{ resto.cuisines }}</p>
-    <p>Rating: {{ resto.aggregate_rating }}</p>
+<div *ngIf="(recommendations$ | async)?.length; else loading">
+  <div *ngFor="let resto of recommendations$ | async" class="resto-card">
+    <h3>{{ resto.nom }}</h3>
+    <div class="score-bar" [style.width.%]="resto.score_ia"></div>
+    <p>Score IA: {{ resto.score_ia | number:'1.1-1' }}%</p>
   </div>
-  
+</div>
+
+<ng-template #loading>
+  <p>Chargement des recommandations en cours...</p>
+</ng-template>

@@ -1,26 +1,34 @@
-<div class="admin-section">
-  <h2>Gestion des Plats</h2>
-  <button class="btn-add">+ Ajouter Plat</button>
-  <table>
+<div class="dishes">
+  <div class="dishes__header">
+    <h2 class="dishes__title">🍽️ Dish Management</h2>
+    <button class="btn btn--add" (click)="onAddDish()">+ Add Dish</button>
+  </div>
+
+  <table class="dishes__table">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Nom</th>
-        <th>Catégorie</th>
-        <th>Prix</th>
+        <th>Name</th>
+        <th>Restaurant name</th>
+        <th>Categorie</th>
+        <th>Price (TND)</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let plat of plats">
-        <td>{{plat.id}}</td>
-        <td>{{plat.nom}}</td>
-        <td>{{plat.categorie}}</td>
-        <td>{{plat.prix}} TND</td>
-        <td>
-          <button class="btn-edit">Modifier</button>
-          <button class="btn-delete">Supprimer</button>
+      <tr *ngFor="let plat of plats" class="dishes__row">
+        <td>{{ plat.id }}</td>
+        <td>{{ plat.nom }}</td>
+        <td>{{ plat.nomRes }}</td>
+        <td>{{ plat.categorie }}</td>
+        <td>{{ plat.prix | number:'1.2-2' }}</td>
+        <td class="dishes__actions">
+          <button class="btn btn--edit" (click)="onEditDish(plat)">To modify</button>
+          <button class="btn btn--delete" (click)="onDeleteDish(plat)">Delete</button>
         </td>
+      </tr>
+      <tr *ngIf="plats.length === 0">
+        <td colspan="5" class="dishes__empty">No dishes found.</td>
       </tr>
     </tbody>
   </table>

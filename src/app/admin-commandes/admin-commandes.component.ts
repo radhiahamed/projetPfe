@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-commandes.component.css']
 })
 export class AdminCommandesComponent implements OnInit {
+commandes: any;
+onEditOrder: any;
+onDeleteOrder: any;
 
   constructor() { }
 

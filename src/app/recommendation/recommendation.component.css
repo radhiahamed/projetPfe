@@ -1,0 +1,12 @@
+/* recommendation.component.css */
+.resto-card {
+  border: 1px solid #eee;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+}
+.score-bar {
+  height: 8px;
+  background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+  margin: 5px 0;
+}

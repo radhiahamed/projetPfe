@@ -54,6 +54,7 @@ import { AdminPlatsComponent } from './admin-plats/admin-plats.component';
 import { AdminCommandesComponent } from './admin-commandes/admin-commandes.component';
 import { AdminNotificationsComponent } from './admin-notifications/admin-notifications.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RecommendationPerformanceComponent } from './recommendation-performance/recommendation-performance.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminPlatsComponent,
     AdminCommandesComponent,
     AdminNotificationsComponent,
-    DashboardComponent
+    DashboardComponent,
+    RecommendationPerformanceComponent,
+  
+    
   ],
   imports: [
     // Core Modules

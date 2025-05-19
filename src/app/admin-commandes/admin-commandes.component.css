@@ -1,0 +1,130 @@
+.orders {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgb(0 0 0 / 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.orders__header {
+  margin-bottom: 1.8rem;
+}
+
+.orders__title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #333;
+}
+
+.orders__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.orders__table th {
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+}
+
+.orders__table td {
+  background: #f9f9f9;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  color: #444;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+.orders__row td:first-child {
+  font-weight: 700;
+  color: #222;
+}
+
+.orders__actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Boutons */
+.btn {
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+  font-size: 0.95rem;
+  user-select: none;
+}
+
+.btn--edit {
+  background: #2196F3;
+  color: white;
+}
+.btn--edit:hover {
+  background: #1976D2;
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.6);
+}
+
+.btn--delete {
+  background: #F44336;
+  color: white;
+}
+.btn--delete:hover {
+  background: #D32F2F;
+  box-shadow: 0 5px 15px rgba(244, 67, 54, 0.6);
+}
+
+/* Statuts colorés */
+.status {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+/* exemples de statuts courants */
+.status--en attente {
+  background-color: #ffecb3;
+  color: #f57c00;
+}
+
+.status--validée {
+  background-color: #c8e6c9;
+  color: #388e3c;
+}
+
+.status--annulée {
+  background-color: #ffcdd2;
+  color: #d32f2f;
+}
+
+.status--livrée {
+  background-color: #bbdefb;
+  color: #1976d2;
+}
+
+/* Ligne vide */
+.orders__empty {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+  padding: 2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .orders__table th,
+  .orders__table td {
+    padding: 0.6rem 0.8rem;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="container text-center mt-4">
+  <h2>🍽️ Recommandations de Restaurants Basées sur l'IA</h2>
+
+  <div *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p>Chargement des recommandations...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="!isLoading && !error">
+    <table class="table table-bordered table-hover mt-3">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom</th>
+<th>
+  Score IA
+  <span
+    class="ms-1 text-muted"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="Score IA : Mesure calculée par l'IA à partir des sentiments extraits des avis clients."
+  >
+    <i class="bi bi-info-circle"></i>
+  </span>
+</th>
+          <th>👍 Positifs</th>
+          <th>😐 Neutres</th>
+          <th>👎 Négatifs</th>
+          <th>Réserver</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resto of topRestaurants">
+          <td>{{ resto.name }}</td>
+          <td><strong>{{ resto.score }}</strong></td>
+          <td>{{ resto.positive }}%</td>
+          <td>{{ resto.neutral }}%</td>
+          <td>{{ resto.negative }}%</td>
+          <td>
+            <button class="btn btn-success" [routerLink]="['/reservation']">
+              Réserver
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

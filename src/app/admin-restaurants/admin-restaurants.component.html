@@ -1,27 +1,27 @@
-<div class="container">
-  <h2>Gestion des Restaurants</h2>
-  <form (ngSubmit)="onSubmit()" class="restaurant-form">
-    <div class="form-group">
-      <label for="name">Nom du Restaurant</label>
-      <input type="text" id="name" [(ngModel)]="restaurant.name" name="name" placeholder="Nom du Restaurant" required>
-    </div>
-    <div class="form-group">
-      <label for="cuisine">Type de Cuisine</label>
-      <input type="text" id="cuisine" [(ngModel)]="restaurant.cuisine" name="cuisine" placeholder="Type de Cuisine" required>
-    </div>
-    <div class="form-group">
-      <label for="price">Prix</label>
-      <input type="number" id="price" [(ngModel)]="restaurant.price" name="price" placeholder="Prix" required>
-    </div>
-    <button type="submit" class="btn">{{ isEditing ? 'Modifier' : 'Ajouter' }}</button>
-  </form>
-
-  <h3>Liste des Restaurants</h3>
-  <ul class="restaurant-list">
-    <li *ngFor="let restaurant of restaurants" class="restaurant-item">
-      <span>{{ restaurant.name }} - {{ restaurant.cuisine }} - {{ restaurant.price }} €</span>
-      <button (click)="editRestaurant(restaurant)" class="btn edit-btn">Modifier</button>
-      <button (click)="deleteRestaurant(restaurant.id)" class="btn delete-btn">Supprimer</button>
-    </li>
-  </ul>
+<div class="admin-section">
+  <h2>Restaurant Management</h2>
+  <button class="btn-add" (click)="onAddRestaurant()">+ Add Restaurant</button>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Type of cuisine</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let restaurant of restaurants">
+        <td>{{ restaurant.id }}</td>
+        <td>{{ restaurant.nom }}</td>
+        <td>{{ restaurant.location }}</td>
+        <td>{{ restaurant.typeCuisine }}</td>
+        <td>
+          <button class="btn-edit" (click)="onEditRestaurant(restaurant)">To modify</button>
+          <button class="btn-delete" (click)="onDeleteRestaurant(restaurant)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-admin-tables',
-  templateUrl: './admin-tables.component.html'
+  templateUrl: './admin-tables.component.html',
+    styleUrls: ['./admin-tables.component.css']  // ✅ ligne correcte
+
 })
 export class AdminTablesComponent {
   tables: { id: number; number: number; description: string }[] = [];

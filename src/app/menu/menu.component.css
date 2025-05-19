@@ -1,3 +1,24 @@
+.recommendation-banner {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.recommendation-badge {
+  background: #4CAF50;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.dish-card.recommended {
+  border-left: 4px solid #4CAF50;
+  box-shadow: 0 4px 6px rgba(74, 222, 128, 0.2);
+}
 /* Style de la galerie */
 .gallery {
   display: grid;

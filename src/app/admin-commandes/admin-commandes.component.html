@@ -1,1 +1,36 @@
-<p>admin-commandes works!</p>
+<div class="orders">
+  <div class="orders__header">
+    <h2 class="orders__title">📦 Gestion des Commandes</h2>
+  </div>
+
+  <table class="orders__table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Client</th>
+        <th>Total (€)</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let commande of commandes" class="orders__row">
+        <td>{{ commande.id }}</td>
+        <td>{{ commande.client }}</td>
+        <td>{{ commande.total | number:'1.2-2' }}</td>
+        <td>
+          <span class="status" [ngClass]="'status--' + commande.statut.toLowerCase()">
+            {{ commande.statut }}
+          </span>
+        </td>
+        <td class="orders__actions">
+          <button class="btn btn--edit" (click)="onEditOrder(commande)">Modifier</button>
+          <button class="btn btn--delete" (click)="onDeleteOrder(commande)">Supprimer</button>
+        </td>
+      </tr>
+      <tr *ngIf="commandes.length === 0">
+        <td colspan="5" class="orders__empty">Aucune commande trouvée.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
